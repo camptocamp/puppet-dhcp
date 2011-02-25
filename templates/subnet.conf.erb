@@ -23,7 +23,6 @@ subnet <%=name%> netmask <%=netmask_eth0%> {
 <% else -%>
   option domain-name "<%=domain%>";
 <% end -%>
-  include "<%=to_include%>";
 <% if other_opts and not other_opts.empty? -%>
   <% if other_opts.is_a?(Array) -%>
   <%= other_opts.join(";\n") %>
@@ -32,3 +31,4 @@ subnet <%=name%> netmask <%=netmask_eth0%> {
   <% end -%>
 <% end -%>
 }
+include "<%=to_include%>";
