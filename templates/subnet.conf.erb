@@ -25,7 +25,7 @@ subnet <%=name%> netmask <%=netmask_eth0%> {
 <% end -%>
 <% if other_opts and not other_opts.empty? -%>
   <% if other_opts.is_a?(Array) -%>
-  <%= other_opts.join(";\n") %>
+<%= other_opts.collect! {|i| "  #{i};"}.join("\n") %>
   <% else -%>
   <%=other_opts%>;
   <% end -%>
