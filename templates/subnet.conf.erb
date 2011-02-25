@@ -6,7 +6,7 @@ subnet <%=name%> netmask <%=netmask%> {
 subnet <%=name%> netmask <%=netmask_eth0%> {
 <% end -%>
 <% if routers and not routers.empty? -%>
-  option routers  routers.collect! {|i| "#{i}" }.join(",");
+  option routers <%= routers.collect! {|i| "#{i}" }.join(",") %>;
 <% else -%>
   option routers <%=network_eth0%>;
 <% end -%>
