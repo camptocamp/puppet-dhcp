@@ -30,7 +30,7 @@ node "dhcp.toto.ltd" {
   }
 }
 */
-class dhcp {
+class dhcp::server {
   case $operatingsystem {
     Debian: { include dhcp::server::debian }
   }
