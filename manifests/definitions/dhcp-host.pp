@@ -9,7 +9,7 @@ Arguments:
  *$fixed_address*: host fixed address (if not set, takes $name)
 
 */
-define dhcp::host($ensure=present,$mac,$subnet,$fixed_address=false) {
+define dhcp::host($ensure=present,$mac,$subnet,$fixed_address=false, $options=false) {
   include dhcp::params
   common::concatfilepart {"dhcp.host.$name":
     ensure => $ensure,
