@@ -27,6 +27,15 @@ class dhcp::server::base {
     notify  => Service["dhcpd"],
   }
 
+  file {"${dhcp::params::config_dir}/dhcpd.conf.d":
+    ensure => directory,
+    mode   => 0700,
+    recurse => true,
+    purge   => true,
+    force   => true,
+    source  => "puppet:///modules/dhcp/empty"
+  }
+
   file {"${dhcp::params::config_dir}/subnets":
     ensure => directory,
     require => Package["dhcp-server"],
@@ -34,7 +43,7 @@ class dhcp::server::base {
     recurse => true,
     purge   => true,
     force   => true,
-    source  => "puppet:///dhcp/empty"
+    source  => "puppet:///modules/dhcp/empty"
   }
 
   file {"${dhcp::params::config_dir}/hosts.d":
@@ -43,7 +52,7 @@ class dhcp::server::base {
     recurse => true,
     purge   => true,
     force   => true,
-    source  => "puppet:///dhcp/empty"
+    source  => "puppet:///modules/dhcp/empty"
   }
 
 }
