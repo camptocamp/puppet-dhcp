@@ -5,4 +5,7 @@ host <%=name%> {
 <% else -%>
   fixed-address <%=name%>;
 <% end -%>
+<% if options -%>
+  <%=options%>
+<% end -%>
 }

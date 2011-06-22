@@ -1,0 +1,7 @@
+#### dhcp::shared-network <%= name %>
+shared-network <%= name %> {
+<% subnets.each do |subnet| -%>
+  include "<%= scope.lookupvar("dhcp::params::config_dir") %>/subnets/<%= subnet %>.conf";
+<% end -%>
+}
+#### END <%= name %>

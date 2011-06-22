@@ -10,6 +10,7 @@ Arguments:
  *$subnet_mask* : netmask sent to dhcp guests (if not set, takes $netmask, or netmask_eth0)
  *$domain_name* : subnet domain name (if not set, takes server domain)
  *$other_opts*  : any other DHCPD option, as an array
+ *$is_shared*   : whether it's part of a shared network or not. Default: false
 
 Example:
 
@@ -32,7 +33,8 @@ define dhcp::subnet(
   $routers=false,
   $subnet_mask=false,
   $domain_name=false,
-  $other_opts=false) {
+  $other_opts=false,
+  $is_shared=false) {
   include dhcp::params
 
   $to_include = "${dhcp::params::config_dir}/hosts.d/${name}.conf"
@@ -45,10 +47,25 @@ define dhcp::subnet(
     notify  => Service["dhcpd"],
   }
   
-  common::concatfilepart {"dhcp.${name}":
+  if ! $is_shared {
+    common::concatfilepart {"dhcp.${name}":
+      file => "${dhcp::params::config_dir}/dhcpd.conf",
+      ensure => $ensure,
+      content => "include \"${dhcp::params::config_dir}/subnets/${name}.conf\";\n",
+    }
+  } else {
+    common::concatfilepart {"dhcp.${name}":
+      file => "${dhcp::params::config_dir}/dhcpd.conf",
+      ensure => absent,
+      content => "include \"${dhcp::params::config_dir}/subnets/${name}.conf\";\n",
+    }
+
+  }
+
+  common::concatfilepart {"subnet.${name}.hosts":
     file => "${dhcp::params::config_dir}/dhcpd.conf",
     ensure => $ensure,
-    content => "include \"${dhcp::params::config_dir}/subnets/${name}.conf\";\n",
+    content => "include \"${dhcp::params::config_dir}/hosts.d/${name}.conf\";\n",
   }
 
   common::concatfilepart {"00.dhcp.${name}.base":
