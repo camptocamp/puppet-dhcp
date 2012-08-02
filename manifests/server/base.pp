@@ -7,7 +7,10 @@ This class should be inherited in dhcp::server::$operatingsystem.
 
 */
 class dhcp::server::base {
+
   include dhcp::params
+  include concat::setup
+  
   package {"dhcp-server":
     ensure => present,
     name   => $dhcp::params::srv_dhcpd,
@@ -20,9 +23,15 @@ class dhcp::server::base {
     require => Package["dhcp-server"],
   }
 
-  common::concatfilepart {"00.dhcp.server.base":
-    file    => "${dhcp::params::config_dir}/dhcpd.conf",
+  concat {"${dhcp::params::config_dir}/dhcpd.conf":
+    owner => root,
+    group => root,
+    mode  => '0644',
+  }
+
+  concat::fragment {"00.dhcp.server.base":
     ensure  => present,
+    target  => "${dhcp::params::config_dir}/dhcpd.conf",
     require => Package["dhcp-server"],
     notify  => Service["dhcpd"],
   }

@@ -37,7 +37,11 @@ define dhcp::subnet(
   $is_shared=false) {
   include dhcp::params
 
-  $to_include = "${dhcp::params::config_dir}/hosts.d/${name}.conf"
+  concat {"${dhcp::params::config_dir}/hosts.d/${name}.conf":
+    owner => root,
+    group => root,
+    mode  => '0644',
+  }
 
   file {"${dhcp::params::config_dir}/subnets/${name}.conf":
     ensure => $ensure,
@@ -48,29 +52,29 @@ define dhcp::subnet(
   }
   
   if ! $is_shared {
-    common::concatfilepart {"dhcp.${name}":
-      file => "${dhcp::params::config_dir}/dhcpd.conf",
-      ensure => $ensure,
+    concat::fragment {"dhcp.${name}":
+      ensure  => $ensure,
+      target  => "${dhcp::params::config_dir}/dhcpd.conf",
       content => "include \"${dhcp::params::config_dir}/subnets/${name}.conf\";\n",
     }
   } else {
-    common::concatfilepart {"dhcp.${name}":
-      file => "${dhcp::params::config_dir}/dhcpd.conf",
-      ensure => absent,
+    concat::fragment {"dhcp.${name}":
+      ensure  => absent,
+      target  => "${dhcp::params::config_dir}/dhcpd.conf",
       content => "include \"${dhcp::params::config_dir}/subnets/${name}.conf\";\n",
     }
 
   }
 
-  common::concatfilepart {"subnet.${name}.hosts":
-    file => "${dhcp::params::config_dir}/dhcpd.conf",
-    ensure => $ensure,
+  concat::fragment {"subnet.${name}.hosts":
+    ensure  => $ensure,
+    target  => "${dhcp::params::config_dir}/dhcpd.conf",
     content => "include \"${dhcp::params::config_dir}/hosts.d/${name}.conf\";\n",
   }
 
-  common::concatfilepart {"00.dhcp.${name}.base":
-    file   => $to_include,
-    ensure => $ensure,
+  concat::fragment {"00.dhcp.${name}.base":
+    ensure  => $ensure,
+    target  => "${dhcp::params::config_dir}/hosts.d/${name}.conf",
     content => "# File managed by puppet\n",
   }
 }

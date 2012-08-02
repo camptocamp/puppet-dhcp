@@ -13,9 +13,9 @@ Warnings:
 */
 define dhcp::shared-network($ensure=present, $subnets=[]) {
   include dhcp::params
-  common::concatfilepart {"shared-${name}":
+  concat::fragment {"shared-${name}":
     ensure  => $ensure,
-    file    => "${dhcp::params::config_dir}/dhcpd.conf",
+    target  => "${dhcp::params::config_dir}/dhcpd.conf",
     content => template("dhcp/shared-network.erb"),
     require => Dhcp::Subnet[$subnets],
   }

@@ -11,10 +11,10 @@ Arguments:
 */
 define dhcp::host($ensure=present,$mac,$subnet,$fixed_address=false, $options=false) {
   include dhcp::params
-  common::concatfilepart {"dhcp.host.$name":
-    ensure => $ensure,
-    notify => Service["dhcpd"],
-    file   => "${dhcp::params::config_dir}/hosts.d/${subnet}.conf",
+  concat::fragment {"dhcp.host.$name":
+    ensure  => $ensure,
+    target  => "${dhcp::params::config_dir}/hosts.d/${subnet}.conf",
     content => template("dhcp/host.conf.erb"),
+    notify  => Service["dhcpd"],
   }
 }
