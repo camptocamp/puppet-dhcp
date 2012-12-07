@@ -20,7 +20,7 @@ class dhcp::params {
     }
 
     default: {
-      fail "${name} is not available for ${operatingsystem}/${lsbdistcodename}"
+      fail "${name} is not available for ${::operatingsystem}/${::lsbdistcodename}"
     }
 
   }
