@@ -5,34 +5,35 @@
 # Arguments
 # $template:  dhcp host template - default: 'dhcp/host.conf.erb'
 # $subnet:    targeted subnet
-# $data_hash: hash containing data - default form:
+# $hash_data: hash containing data - default form:
 #      {
 #        <host1>         => {
 #          options       => false,
 #          fixed_address => false,
-#          eth0          => 'mac-address',
-#          eth1          => 'mac-address',
-#          …,
-#          wlan0 => 'mac-address',
-#          wlan1 => 'mac-address',
-#          …,
+#          interfaces    => {
+#            eth0        => 'mac-address',
+#            eth1        => 'mac-address',
+#            wlan0       => 'mac-address',
+#            wlan1       => 'mac-address',
+#            …,
+#          }
 #        },
 #        <host2>         => {
 #          options       => false,
 #          fixed_address => false,
-#          eth0          => 'mac-address',
-#          eth1          => 'mac-address',
-#          …,
-#          wlan0 => 'mac-address',
-#          wlan1 => 'mac-address',
-#          …,
-#          options => false,
+#          interfaces    => {
+#            eth0        => 'mac-address',
+#            eth1        => 'mac-address',
+#            wlan0       => 'mac-address',
+#            wlan1       => 'mac-address',
+#            …,
+#          }
 #        },
 #        …,
 #      }
 #
 define dhcp::hosts (
-  $data_hash,
+  $hash_data,
   $subnet,
   $template = 'dhcp/host.conf.erb',
 ) {
