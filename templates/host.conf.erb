@@ -3,12 +3,14 @@
 host <%= host %>-<%= if_name %> {
   hardware ethernet <%= if_mac %>;
 <% if datas.fetch('fixed_address', false) -%>
-  fixed-address <%= datas.fetch('fixed_address') %>
+  fixed-address <%= datas.fetch('fixed_address') %>;
 <% else -%>
-  fixed-address <%= host %>
+  fixed-address <%= host %>;
 <% end -%>
 <% if datas.fetch('option', false) -%>
   <%= datas.fetch('option') %>
+<% elsif @global_options -%>
+  <%= @global_options %>
 <% end -%>
 }
 <% end -%>

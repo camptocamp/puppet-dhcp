@@ -4,6 +4,9 @@
 #
 # Arguments
 # $template:  dhcp host template - default: 'dhcp/host.conf.erb'
+# $global_options: global options for the whole bunch of hosts.
+#                  you may override it per host, setting the host "options"
+#                  directly in the hash.
 # $subnet:    targeted subnet
 # $hash_data: hash containing data - default form:
 #      {
@@ -35,6 +38,7 @@
 define dhcp::hosts (
   $hash_data,
   $subnet,
+  $global_options = false,
   $template = 'dhcp/host.conf.erb',
 ) {
 
