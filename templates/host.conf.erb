@@ -1,11 +1,15 @@
-host <%=name%> {
-  hardware ethernet <%=mac%>;
-<% if fixed_address -%>
-  fixed-address <%=fixed_address%>;
+<%- @hash_data.sort.each do |host, datas| -%>
+<%- datas.fetch('interfaces').sort.each do |if_name, if_mac| -%>
+host <%= host %>-<%= if_name %> {
+  hardware ethernet <%= if_mac %>;
+<% if datas.fetch('fixed_address', false) -%>
+  fixed-address <%= datas.fetch('fixed_address') %>
 <% else -%>
-  fixed-address <%=name%>;
+  fixed-address <%= host %>
 <% end -%>
-<% if options -%>
-  <%=options%>
+<% if datas.fetch('option', false) -%>
+  <%= datas.fetch('option') %>
 <% end -%>
 }
+<% end -%>
+<% end -%>
