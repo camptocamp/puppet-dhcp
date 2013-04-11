@@ -5,10 +5,10 @@
 #   module "common": git://github.com/camptocamp/puppet-common.git
 #
 # facultative argument:
-#   *$ddns_update*   : ddns-update-style option (default to none)
-#   *$authoritative* : set it if you want that your DHCP server is
-#                      authoritative (default to no)
-#   *$opts*          : any other DHCPD valid options
+#   *$ddns_update*   : ddns-update-style option (defaults to 'none')
+#   *$authoritative* : a boolean setting whether the DHCP server is
+#                      authoritative (defaults to false)
+#   *$opts*          : an array of DHCPD valid options
 #
 # Example:
 # node "dhcp.toto.ltd" {
