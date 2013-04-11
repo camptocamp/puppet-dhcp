@@ -27,7 +27,7 @@ class dhcp::params {
     }
 
     default: {
-      fail "${name} is not available for ${::operatingsystem}/${::lsbdistcodename}"
+      fail "Unsupported OS ${::operatingsystem}/${::lsbdistcodename}"
     }
 
   }

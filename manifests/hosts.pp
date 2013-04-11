@@ -42,7 +42,7 @@ define dhcp::hosts (
   $template = 'dhcp/host.conf.erb',
 ) {
 
-  include dhcp::params
+  include ::dhcp::params
 
   concat::fragment {"dhcp.host.${name}":
     target  => "${dhcp::params::config_dir}/hosts.d/${subnet}.conf",
