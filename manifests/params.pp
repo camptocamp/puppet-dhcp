@@ -1,4 +1,4 @@
-# = Class: dhcp::params
+# Class: dhcp::params
 #
 # Do NOT include this class - it won't do anything.
 # Set variables for names and paths
@@ -23,7 +23,7 @@ class dhcp::params {
         squeeze => '/usr/sbin/dhcpd',
       }
 
-      $base_template = 'dhcp/dhcpd.conf.debian.erb'
+      $server_template = "${module_name}/dhcpd.conf.debian.erb"
     }
 
     default: {
