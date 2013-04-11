@@ -86,56 +86,113 @@ describe 'dhcp' do
   end
 
   context 'When passing ddns_update' do
-    let (:facts) { {
-      :operatingsystem => 'Debian',
-      :osfamily        => 'Debian',
-      :lsbdistcodename => 'squeeze'
-    } }
-    let (:params) { {
-      :server_ddns_update => 'foo'
-    } }
+    context 'When passing wrong type' do
+      let (:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily        => 'Debian',
+        :lsbdistcodename => 'squeeze'
+      } }
+      let (:params) { {
+        :server_ddns_update => true
+      } }
 
-    it { should contain_concat__fragment('00.dhcp.server.base').with(
-        :ensure  => 'present',
-        :target  => '/etc/dhcp/dhcpd.conf',
-        :content => /log-facility/
-      ).with_content(/ddns-update-style foo;/).with_content(/#authoritative/)
-    }
+      it 'should fail' do
+        expect {
+          should contain_concat__fragment('00.dhcp.server.base')
+        }.to raise_error(Puppet::Error, /true is not a string./)
+      end
+    end
+
+    context 'When passing valid value' do
+      let (:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily        => 'Debian',
+        :lsbdistcodename => 'squeeze'
+      } }
+      let (:params) { {
+        :server_ddns_update => 'foo'
+      } }
+
+      it { should contain_concat__fragment('00.dhcp.server.base').with(
+          :ensure  => 'present',
+          :target  => '/etc/dhcp/dhcpd.conf',
+          :content => /log-facility/
+        ).with_content(/ddns-update-style foo;/).with_content(/#authoritative/)
+      }
+    end
   end
 
   context 'When passing authoritative' do
-    let (:facts) { {
-      :operatingsystem => 'Debian',
-      :osfamily        => 'Debian',
-      :lsbdistcodename => 'squeeze'
-    } }
-    let (:params) { {
-      :server_authoritative => true
-    } }
+    context 'When passing wrong type' do
+      let (:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily        => 'Debian',
+        :lsbdistcodename => 'squeeze'
+      } }
+      let (:params) { {
+        :server_authoritative => 'foo'
+      } }
 
-    it { should contain_concat__fragment('00.dhcp.server.base').with(
-        :ensure  => 'present',
-        :target  => '/etc/dhcp/dhcpd.conf',
-        :content => /log-facility/
-      ).with_content(/ddns-update-style none;/).with_content(/[^#]authoritative/)
-    }
+      it 'should fail' do
+        expect {
+          should contain_concat__fragment('00.dhcp.server.base')
+        }.to raise_error(Puppet::Error, /"foo" is not a boolean./)
+      end
+    end
+
+    context 'When passing valid value' do
+      let (:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily        => 'Debian',
+        :lsbdistcodename => 'squeeze'
+      } }
+      let (:params) { {
+        :server_authoritative => true
+      } }
+
+      it { should contain_concat__fragment('00.dhcp.server.base').with(
+          :ensure  => 'present',
+          :target  => '/etc/dhcp/dhcpd.conf',
+          :content => /log-facility/
+        ).with_content(/ddns-update-style none;/).with_content(/[^#]authoritative/)
+      }
+    end
   end
 
   context 'When passing opts' do
-    let (:facts) { {
-      :operatingsystem => 'Debian',
-      :osfamily        => 'Debian',
-      :lsbdistcodename => 'squeeze'
-    } }
-    let (:params) { {
-      :server_opts => ['foo', 'bar', 'baz']
-    } }
+    context 'When passing wrong type' do
+      let (:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily        => 'Debian',
+        :lsbdistcodename => 'squeeze'
+      } }
+      let (:params) { {
+        :server_opts => 'foo'
+      } }
 
-    it { should contain_concat__fragment('00.dhcp.server.base').with(
-        :ensure  => 'present',
-        :target  => '/etc/dhcp/dhcpd.conf',
-        :content => /log-facility/
-      ).with_content(/ddns-update-style none;/).with_content(/#authoritative/).with_content(/foo;\nbar;\nbaz;\n/)
-    }
+      it 'should fail' do
+        expect {
+          should contain_concat__fragment('00.dhcp.server.base')
+        }.to raise_error(Puppet::Error, /"foo" is not an Array./)
+      end
+    end
+
+    context 'When passing valid value' do
+      let (:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily        => 'Debian',
+        :lsbdistcodename => 'squeeze'
+      } }
+      let (:params) { {
+        :server_opts => ['foo', 'bar', 'baz']
+      } }
+
+      it { should contain_concat__fragment('00.dhcp.server.base').with(
+          :ensure  => 'present',
+          :target  => '/etc/dhcp/dhcpd.conf',
+          :content => /log-facility/
+        ).with_content(/ddns-update-style none;/).with_content(/#authoritative/).with_content(/foo;\nbar;\nbaz;\n/)
+      }
+    end
   end
 end
