@@ -1,25 +1,6 @@
-# = Class dhcp::server::base
-#
-# Do NOT include this class - it won't work at all.
-# Set variables for package name and so on.
-# This class should be inherited in dhcp::server::$operatingsystem.
-#
-class dhcp::server::base {
-
-  include dhcp::params
-  include concat::setup
-
-  package {'dhcp-server':
-    ensure => present,
-    name   => $dhcp::params::srv_dhcpd,
-  }
-
-  service {'dhcpd':
-    ensure  => running,
-    name    => $dhcp::params::srv_dhcpd,
-    enable  => true,
-    require => Package['dhcp-server'],
-  }
+class dhcp::server::config {
+  include ::dhcp::params
+  include ::concat::setup
 
   concat {"${dhcp::params::config_dir}/dhcpd.conf":
     owner => root,
@@ -30,8 +11,7 @@ class dhcp::server::base {
   concat::fragment {'00.dhcp.server.base':
     ensure  => present,
     target  => "${dhcp::params::config_dir}/dhcpd.conf",
-    require => Package['dhcp-server'],
-    notify  => Service['dhcpd'],
+    content => template($dhcp::params::base_template),
   }
 
   file {"${dhcp::params::config_dir}/dhcpd.conf.d":
@@ -40,7 +20,7 @@ class dhcp::server::base {
     recurse => true,
     purge   => true,
     force   => true,
-    source  => 'puppet:///modules/dhcp/empty'
+    source  => "puppet:///modules/${module_name}/empty"
   }
 
   file {"${dhcp::params::config_dir}/subnets":
@@ -48,7 +28,7 @@ class dhcp::server::base {
     recurse => true,
     purge   => true,
     force   => true,
-    source  => 'puppet:///modules/dhcp/empty',
+    source  => "puppet:///modules/${module_name}/empty",
     require => Package['dhcp-server'],
     notify  => Service['dhcpd'],
   }
@@ -58,8 +38,6 @@ class dhcp::server::base {
     recurse => true,
     purge   => true,
     force   => true,
-    source  => 'puppet:///modules/dhcp/empty',
-    require => Package['dhcp-server'],
+    source  => "puppet:///modules/${module_name}/empty",
   }
-
 }

@@ -17,6 +17,13 @@ class dhcp::params {
         lenny   => 'dhcp3-server',
         squeeze => 'isc-dhcp-server',
       }
+
+      $service_pattern = $::lsbdistcodename? {
+        lenny   => '/usr/sbin/dhcpd3',
+        squeeze => '/usr/sbin/dhcpd',
+      }
+
+      $base_template = 'dhcp/dhcpd.conf.debian.erb'
     }
 
     default: {
