@@ -5,15 +5,17 @@
 #   module "common": git://github.com/camptocamp/puppet-common.git
 #
 # facultative argument:
-#   *$dhcpd_ddns_update*   : ddns-update-style option (default to none)
-#   *$dhcpd_authoritative* : set it if you want that your DHCP server is
-#                             authoritative (default to no)
-#   *$dhcpd_opts*          : any other DHCPD valid options
+#   *$ddns_update*   : ddns-update-style option (default to none)
+#   *$authoritative* : set it if you want that your DHCP server is
+#                      authoritative (default to no)
+#   *$opts*          : any other DHCPD valid options
 #
 # Example:
 # node "dhcp.toto.ltd" {
-#   $dhcpd_opts = ['domain-name "toto.ltd"', "domain-name-servers 192.168.21.1"]
-#   include dhcp::server
+#   class { 'dhcp::server':
+#     opts => ['domain-name "toto.ltd"',
+#              'domain-name-servers 192.168.21.1'],
+#   }
 #
 #   dhcp::subnet {"10.27.20.0":
 #     ensure     => present,
@@ -29,7 +31,11 @@
 #   }
 # }
 #
-class dhcp::server {
+class dhcp::server (
+  $ddns_update = 'none',
+  $authoritative = false,
+  $opts = [],
+) {
   class { '::dhcp::server::packages': } ->
   class { '::dhcp::server::config': } ~>
   class { '::dhcp::server::service': }

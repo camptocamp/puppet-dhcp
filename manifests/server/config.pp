@@ -11,6 +11,10 @@ class dhcp::server::config {
   validate_string($dhcp::params::server_template)
   validate_re($dhcp::params::server_template, '^\S+$')
 
+  validate_string($dhcp::server::ddns_update)
+  validate_bool($dhcp::server::authoritative)
+  validate_array($dhcp::server::opts)
+
   concat {"${dhcp::params::config_dir}/dhcpd.conf":
     owner => root,
     group => root,

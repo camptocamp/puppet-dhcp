@@ -34,6 +34,13 @@ describe 'dhcp' do
       :mode  => '0644'
     ) }
 
+    it { should contain_concat__fragment('00.dhcp.server.base').with(
+      :ensure  => 'present',
+      :target  => '/etc/dhcp3/dhcpd.conf',
+      :content => /log-facility/
+      ).with_content(/ddns-update-style none;/).with_content(/#authoritative/)
+    }
+
     # Service
     it { should contain_service('dhcpd').with(
       :ensure  => 'running',
@@ -62,6 +69,13 @@ describe 'dhcp' do
       :mode  => '0644'
     ) }
 
+    it { should contain_concat__fragment('00.dhcp.server.base').with(
+        :ensure  => 'present',
+        :target  => '/etc/dhcp/dhcpd.conf',
+        :content => /log-facility/
+      ).with_content(/ddns-update-style none;/).with_content(/#authoritative/)
+    }
+
     # Service
     it { should contain_service('dhcpd').with(
       :ensure  => 'running',
@@ -69,5 +83,59 @@ describe 'dhcp' do
       :enable  => true,
       :pattern => '/usr/sbin/dhcpd'
     ) }
+  end
+
+  context 'When passing ddns_update' do
+    let (:facts) { {
+      :operatingsystem => 'Debian',
+      :osfamily        => 'Debian',
+      :lsbdistcodename => 'squeeze'
+    } }
+    let (:params) { {
+      :server_ddns_update => 'foo'
+    } }
+
+    it { should contain_concat__fragment('00.dhcp.server.base').with(
+        :ensure  => 'present',
+        :target  => '/etc/dhcp/dhcpd.conf',
+        :content => /log-facility/
+      ).with_content(/ddns-update-style foo;/).with_content(/#authoritative/)
+    }
+  end
+
+  context 'When passing authoritative' do
+    let (:facts) { {
+      :operatingsystem => 'Debian',
+      :osfamily        => 'Debian',
+      :lsbdistcodename => 'squeeze'
+    } }
+    let (:params) { {
+      :server_authoritative => true
+    } }
+
+    it { should contain_concat__fragment('00.dhcp.server.base').with(
+        :ensure  => 'present',
+        :target  => '/etc/dhcp/dhcpd.conf',
+        :content => /log-facility/
+      ).with_content(/ddns-update-style none;/).with_content(/[^#]authoritative/)
+    }
+  end
+
+  context 'When passing opts' do
+    let (:facts) { {
+      :operatingsystem => 'Debian',
+      :osfamily        => 'Debian',
+      :lsbdistcodename => 'squeeze'
+    } }
+    let (:params) { {
+      :server_opts => ['foo', 'bar', 'baz']
+    } }
+
+    it { should contain_concat__fragment('00.dhcp.server.base').with(
+        :ensure  => 'present',
+        :target  => '/etc/dhcp/dhcpd.conf',
+        :content => /log-facility/
+      ).with_content(/ddns-update-style none;/).with_content(/#authoritative/).with_content(/foo;\nbar;\nbaz;\n/)
+    }
   end
 end
