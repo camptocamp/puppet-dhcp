@@ -1,4 +1,4 @@
-# = Definition: dhcp::hosts
+# Definition: dhcp::hosts
 #
 # Creates a dhcp configuration for given hosts
 #
@@ -38,15 +38,27 @@
 define dhcp::hosts (
   $hash_data,
   $subnet,
-  $global_options = false,
-  $template = 'dhcp/host.conf.erb',
+  $ensure = present,
+  $global_options = [],
+  $template = "${module_name}/host.conf.erb",
 ) {
 
   include ::dhcp::params
 
-  concat::fragment {"dhcp.host.${name}":
-    target  => "${dhcp::params::config_dir}/hosts.d/${subnet}.conf",
-    content => template($template),
-    notify  => Service['dhcpd'],
+  validate_string($ensure)
+  validate_re($ensure, ['present', 'absent'],
+              "\$ensure must be either 'present' or 'absent', got '${ensure}'")
+  validate_hash($hash_data)
+  validate_string($subnet)
+  validate_re($subnet, '^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$')
+  validate_array($global_options)
+  validate_string($template)
+
+  if ($ensure == 'present') {
+    concat::fragment {"dhcp.host.${name}":
+      target  => "${dhcp::params::config_dir}/hosts.d/${subnet}.conf",
+      content => template($template),
+      notify  => Service['dhcpd'],
+    }
   }
 }

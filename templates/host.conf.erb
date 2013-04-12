@@ -1,16 +1,26 @@
-<%- @hash_data.sort.each do |host, datas| -%>
-<%- datas.fetch('interfaces').sort.each do |if_name, if_mac| -%>
+<%- @hash_data.sort.each do |host, data|
+  scope.function_validate_hash([data]) -%>
+<%-
+  raise Puppet::ParseError, "Missing interfaces hash for host '#{host}'" unless data.has_key? 'interfaces' 
+  data.fetch('interfaces').sort.each do |if_name, if_mac|
+    scope.function_validate_re([if_name, '^\S+$'])
+    scope.function_validate_string([if_mac])
+    scope.function_validate_re([if_mac, '^[a-f0-9:.]+$'])
+ -%>
 host <%= host %>-<%= if_name %> {
   hardware ethernet <%= if_mac %>;
-<% if datas.fetch('fixed_address', false) -%>
-  fixed-address <%= datas.fetch('fixed_address') %>;
-<% else -%>
-  fixed-address <%= host %>;
-<% end -%>
-<% if datas.fetch('option', false) -%>
-  <%= datas.fetch('option') %>
-<% elsif @global_options -%>
-  <%= @global_options %>
+<%
+  fixed_address = data.fetch('fixed_address', nil) || host
+  scope.function_validate_string([fixed_address])
+  scope.function_validate_re([fixed_address, '^\S+$'])
+ -%>
+  fixed-address <%= fixed_address %>;
+<%
+  options = data.fetch('options', nil) || @global_options
+  scope.function_validate_array([options])
+  unless options.empty?
+ -%>
+  <%= options.join(";\n") %>;
 <% end -%>
 }
 <% end -%>
