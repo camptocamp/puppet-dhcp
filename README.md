@@ -6,8 +6,14 @@ This module is provided by [Camptocamp](http://www.camptocamp.com/)
 
 ## Classes
 
+* dhcp
+* dhcp::server
+
 ## Definitions
 
+* dhcp::hosts
+* dhcp::shared\_network
+* dhcp::subnet
 
 ## Contributing
 
