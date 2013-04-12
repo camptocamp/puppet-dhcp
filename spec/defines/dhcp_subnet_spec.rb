@@ -161,7 +161,9 @@ describe 'dhcp::subnet' do
       ) }
 
     it { should contain_concat__fragment('dhcp.subnet.1.2.3.4').with(
-      :ensure  => 'absent'
+      :ensure  => 'present',
+      :target  => '/etc/dhcp/dhcpd.conf',
+      :content => "include \"/etc/dhcp/subnets/1.2.3.4.conf\";\n"
     ) }
 
     it { should contain_concat__fragment('dhcp.subnet.1.2.3.4.hosts').with(
@@ -185,9 +187,7 @@ describe 'dhcp::subnet' do
     } }
 
     it { should contain_concat__fragment('dhcp.subnet.1.2.3.4').with(
-      :ensure  => 'present',
-      :target  => '/etc/dhcp/dhcpd.conf',
-      :content => "include \"/etc/dhcp/subnets/1.2.3.4.conf\";\n"
+      :ensure  => 'absent'
     ) }
   end
 

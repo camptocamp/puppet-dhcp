@@ -64,8 +64,8 @@ define dhcp::subnet(
   }
 
   $ensure_shared = $is_shared ? {
-    true  => $ensure,
-    false => 'absent',
+    true  => 'absent',
+    false => $ensure,
   }
   concat::fragment {"dhcp.subnet.${name}":
     ensure  => $ensure_shared,
