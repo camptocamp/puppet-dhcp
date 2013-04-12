@@ -1,12 +1,22 @@
-# == Definition: dhcp::shared-network
+# Definition: dhcp::shared-network
+#
 # Creates a shared-network
 #
-# Arguments:
-#  *$subnets* : subnet list to be included in the shared-network
+# Parameters:
+#   ['subnets'] - An array of subnets to be included in the shared-network.
+#
+# Sample usage:
+#   ::dhcp::shared_network { 'office':
+#     subnets => ['192.168.1.0', '192.168.2.0'],
+#   }
+#
+# Requires:
+#   - puppetlabs/stdlib
+#   - ripienaar/concat
 #
 # Warnings:
-#  - subnets must exists
-#  - subnets must have $is_shared set to true (default is false)
+#   - subnets must exists
+#   - subnets must have $is_shared set to true (default is false)
 #
 define dhcp::shared_network(
   $ensure  = present,

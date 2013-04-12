@@ -9,6 +9,14 @@ This module is provided by [Camptocamp](http://www.camptocamp.com/)
 * dhcp
 * dhcp::server
 
+### dhcp
+
+The `dhcp` class is a wrapper around `dhcp::server`:
+
+    include ::dhcp
+
+### dhcp::server
+
 ## Definitions
 
 * dhcp::hosts

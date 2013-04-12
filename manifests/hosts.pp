@@ -2,13 +2,13 @@
 #
 # Creates a dhcp configuration for given hosts
 #
-# Arguments
-# $template:  dhcp host template - default: 'dhcp/host.conf.erb'
-# $global_options: an array of global options for the whole bunch of hosts.
-#                  you may override it per host, setting the host "options"
-#                  directly in the hash.
-# $subnet:    targeted subnet
-# $hash_data: hash containing data - default form:
+# Parameters:
+#   ['template']       -  DHCP host template - default: 'dhcp/host.conf.erb'
+#   ['global_options'] -  An array of global options for the whole bunch of
+#                         hosts.  You may override it per host, setting the
+#                         host "options" directly in the hash.
+#   ['subnet']         -  Targeted subnet
+#   ['hash_data']      -  Hash containing data - default form:
 #      {
 #        <host1>         => {
 #          options       => ['opt1', 'opt2'],
@@ -32,6 +32,30 @@
 #        },
 #        …,
 #      }
+#
+# Sample usage:
+#   ::dhcp::hosts { 'workstations':
+#     subnet    => '192.168.1.0',
+#      'hash_data' => {
+#        'host1' => {
+#          'interfaces' => {
+#            'eth0'  => '00:11:22:33:44:55',
+#            'wlan0' => '00:aa:bb:44:55:ff',
+#          },
+#        },
+#        'host2' => {
+#          'interfaces' => {
+#            'eth1'  => '00:11:af:33:44:55',
+#          },
+#          'fixed_address' => 'foo.example.com',
+#          'options'        => ['opt1'],
+#        },
+#      },
+#   }
+#
+# Requires:
+#   - puppetlabs/stdlib
+#   - ripienaar/concat
 #
 define dhcp::hosts (
   $hash_data,

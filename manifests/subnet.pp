@@ -1,29 +1,27 @@
-# = Definition: dhcp::subnet
+# Definition: dhcp::subnet
+#
 # Creates a subnet
 #
-# Arguments:
-#  *$broadcast*   : subnet broadcast (mandatory)
-#  *$netmask*     : subnet netmask (if not set, takes eth0 netmask)
-#  *$routers*     : subnet routers (array)  (if not set, takes eth0 IP)
-#  *$subnet_mask* : netmask sent to dhcp guests (if not set, takes
-#                   $netmask, or netmask_eth0)
-#  *$domain_name* : subnet domain name (if not set, takes server domain)
-#  *$other_opts*  : any other DHCPD option, as an array
-#  *$is_shared*   : whether it's part of a shared network or not. Default: false
+# Parameters:
+#  ['broadcast']   : subnet broadcast (mandatory)
+#  ['netmask']     : subnet netmask
+#                    (default: $::netmask_eth0)
+#  ['routers']     : An array of subnet routers
+#                    (default: $::netmask)
+#  ['subnet_mask'] : netmask sent to dhcp guests
+#                    (default: the value of $netmask)
+#  ['domain_name'] : subnet domain name
+#                    (default: $::domain)
+#  ['other_opts']  : An array of additional DHCPD options
+#  ['is_shared']   : whether it's part of a shared network or not
+#                    (default: false)
 #
-# Example:
-#
-# node "dhcp.domain.ltd" {
-#   $dhcpd_domain_name = 'domain.ltd'
-#   $dhcpd_dns_servers = '10.27.21.1, 10.26.21.1'
-#   include dhcp
-#
+# Sample usage:
 #   dhcp::subnet {"10.27.20.0":
 #     ensure     => present,
 #     broadcast  => "10.27.20.255",
 #     other_opts => ['filename "pxelinux.0";', 'next-server 10.27.10.1;'],
 #   }
-# }
 #
 define dhcp::subnet(
   $broadcast,
