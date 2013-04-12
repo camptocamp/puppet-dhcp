@@ -37,7 +37,7 @@ describe 'dhcp::shared_network' do
         :ensure  => 'present',
         :target  => '/etc/dhcp/dhcpd.conf'
       ).with_content(
-        /shared-network My network/
+        /shared-network My network \{\n\}/
       )
     }
   end
@@ -67,5 +67,15 @@ describe 'dhcp::shared_network' do
   end
 
   context 'when passing subnets' do
+    let (:params) { {
+      :subnets => ['1.2.3.4', '5.6.7.8'],
+    } }
+
+    it { should contain_concat__fragment('dhcp-shared-My network').with(
+        :ensure => 'present',
+        :target => '/etc/dhcp/dhcpd.conf'
+      ).with_content(
+        /shared-network My network \{\n  include "\/etc\/dhcp\/subnets\/1\.2\.3\.4\.conf";\n  include "\/etc\/dhcp\/subnets\/5\.6\.7\.8\.conf";\n\}/)
+    }
   end
 end

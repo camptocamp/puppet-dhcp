@@ -7,4 +7,4 @@ shared-network <%= @name %> {
   include "<%= scope.lookupvar("dhcp::params::config_dir") %>/subnets/<%= subnet %>.conf";
 <% end -%>
 }
-#### END <%= name %>
+#### END <%= @name %>
