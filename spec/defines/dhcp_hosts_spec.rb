@@ -350,7 +350,7 @@ describe 'dhcp::hosts' do
           },
           'host2' => {
             'interfaces' => {
-              'eth1'  => '00:11:af:33:44:55',
+              'eth1'  => '00:11:AF:33:44:55',
             },
             'fixed_address' => 'foo.example.com',
             'options'        => ['opt1'],
@@ -363,7 +363,7 @@ describe 'dhcp::hosts' do
         :target  => '/etc/dhcp/hosts.d/1.2.3.4.conf').with_content(
         /host host1-eth0 \{\n  hardware ethernet 00:11:22:33:44:55;\n  fixed-address host1;\n\}/).with_content(
         /host host1-wlan0 \{\n  hardware ethernet 00:aa:bb:44:55:ff;\n  fixed-address host1;\n\}/).with_content(
-        /host host2-eth1 \{\n  hardware ethernet 00:11:af:33:44:55;\n  fixed-address foo\.example\.com;\n  opt1;\n\}/)
+        /host host2-eth1 \{\n  hardware ethernet 00:11:AF:33:44:55;\n  fixed-address foo\.example\.com;\n  opt1;\n\}/)
       }
     end
   end

@@ -4,7 +4,7 @@
   data.fetch('interfaces').sort.each do |if_name, if_mac|
     scope.function_validate_re([if_name, '^\S+$'])
     scope.function_validate_string([if_mac])
-    scope.function_validate_re([if_mac, '^[a-f0-9:.]+$'])
+    scope.function_validate_re([if_mac, '^[A-Fa-f0-9:.]+$'])
  -%>
 host <%= host %>-<%= if_name %> {
   hardware ethernet <%= if_mac %>;
