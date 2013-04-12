@@ -8,17 +8,22 @@
 #  - subnets must exists
 #  - subnets must have $is_shared set to true (default is false)
 #
-define dhcp::shared-network(
+define dhcp::shared_network(
   $ensure  = present,
-  $subnets = []
+  $subnets = [],
 ) {
 
-  include dhcp::params
+  include ::dhcp::params
 
-  concat::fragment {"shared-${name}":
+  validate_string($ensure)
+  validate_re($ensure, ['present', 'absent'],
+              "\$ensure must be either 'present' or 'absent', got '${ensure}'")
+  validate_array($subnets)
+
+  concat::fragment {"dhcp-shared-${name}":
     ensure  => $ensure,
     target  => "${dhcp::params::config_dir}/dhcpd.conf",
-    content => template('dhcp/shared-network.erb'),
+    content => template("${module_name}/shared-network.erb"),
     require => Dhcp::Subnet[$subnets],
   }
 
