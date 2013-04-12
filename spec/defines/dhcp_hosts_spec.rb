@@ -255,6 +255,7 @@ describe 'dhcp::hosts' do
       } }
 
       it { should contain_concat__fragment('dhcp.host.My hosts').with(
+        :target  => '/etc/dhcp/hosts.d/1.2.3.4.conf',
         :content => /fixed-address host1;/
       ) }
     end
@@ -273,6 +274,7 @@ describe 'dhcp::hosts' do
       } }
 
       it { should contain_concat__fragment('dhcp.host.My hosts').with(
+        :target  => '/etc/dhcp/hosts.d/1.2.3.4.conf',
         :content => /foo;\nbar;\n/
       ) }
     end
@@ -292,6 +294,7 @@ describe 'dhcp::hosts' do
       } }
 
       it { should contain_concat__fragment('dhcp.host.My hosts').with(
+        :target  => '/etc/dhcp/hosts.d/1.2.3.4.conf',
         :content => /baz;\n/
       ) }
     end
@@ -331,6 +334,7 @@ describe 'dhcp::hosts' do
       } }
 
       it { should contain_concat__fragment('dhcp.host.My hosts').with(
+        :target  => '/etc/dhcp/hosts.d/1.2.3.4.conf',
         :content => /foo;\nbar;\n/
       ) }
     end
@@ -355,7 +359,8 @@ describe 'dhcp::hosts' do
         :subnet    => '1.2.3.4'
       } }
 
-      it { should contain_concat__fragment('dhcp.host.My hosts').with_content(
+      it { should contain_concat__fragment('dhcp.host.My hosts').with(
+        :target  => '/etc/dhcp/hosts.d/1.2.3.4.conf').with_content(
         /host host1-eth0 \{\n  hardware ethernet 00:11:22:33:44:55;\n  fixed-address host1;\n\}/).with_content(
         /host host1-wlan0 \{\n  hardware ethernet 00:aa:bb:44:55:ff;\n  fixed-address host1;\n\}/).with_content(
         /host host2-eth1 \{\n  hardware ethernet 00:11:af:33:44:55;\n  fixed-address foo\.example\.com;\n  opt1;\n\}/)

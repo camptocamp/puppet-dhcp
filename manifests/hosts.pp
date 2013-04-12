@@ -4,15 +4,14 @@
 #
 # Arguments
 # $template:  dhcp host template - default: 'dhcp/host.conf.erb'
-# $global_options: global options for the whole bunch of hosts.
+# $global_options: an array of global options for the whole bunch of hosts.
 #                  you may override it per host, setting the host "options"
 #                  directly in the hash.
 # $subnet:    targeted subnet
 # $hash_data: hash containing data - default form:
 #      {
 #        <host1>         => {
-#          options       => false,
-#          fixed_address => false,
+#          options       => ['opt1', 'opt2'],
 #          interfaces    => {
 #            eth0        => 'mac-address',
 #            eth1        => 'mac-address',
@@ -22,8 +21,7 @@
 #          }
 #        },
 #        <host2>         => {
-#          options       => false,
-#          fixed_address => false,
+#          fixed_address => 'foo.example.com',
 #          interfaces    => {
 #            eth0        => 'mac-address',
 #            eth1        => 'mac-address',
