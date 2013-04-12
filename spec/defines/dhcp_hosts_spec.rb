@@ -317,43 +317,6 @@ describe 'dhcp::hosts' do
       end
     end
 
-    context 'when passing wrong value for fixed_address' do
-      let (:params) { {
-        :hash_data => {
-          'host1' => {
-            'interfaces' => {
-              'eth0'  => '00:11:22:33:44:55',
-            },
-            'fixed_address' => 'my wrong value',
-          },
-        },
-        :subnet    => '1.2.3.4'
-      } }
-
-      it 'should fail' do
-        expect {
-          should contain_concat__fragment('dhcp.host.My hosts')
-        }.to raise_error(Puppet::Error, /"my wrong value" does not match/)
-      end
-    end
-
-    context 'when not passing fixed_address' do
-      let (:params) { {
-        :hash_data => {
-          'host1' => {
-            'interfaces' => {
-              'eth0'  => '00:11:22:33:44:55',
-            },
-          },
-        },
-        :subnet    => '1.2.3.4'
-      } }
-
-      it { should contain_concat__fragment('dhcp.host.My hosts').with(
-        :content => /fixed-address host1;/
-      ) }
-    end
-
     context 'when not passing options' do
       let (:params) { {
         :hash_data => {
@@ -400,12 +363,17 @@ describe 'dhcp::hosts' do
     end
   end
 
-  context 'when passing two entries in hash_data' do
-  end
-
-  context 'when passing global_options' do
-  end
-
   context 'when overriding template' do
+    let (:params) { {
+      :hash_data => {},
+      :subnet    => '1.2.3.4',
+      :template  => 'wrong/path',
+    } }
+
+    it 'should fail' do
+      expect {
+        should contain_concat__fragment('dhcp.host.My hosts')
+      }.to raise_error(Puppet::Error, /Could not find template 'wrong\/path'/)
+    end
   end
 end
