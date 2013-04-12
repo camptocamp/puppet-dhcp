@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'dhcp' do
-  context 'When on an unsupported OS' do
+  context 'when on an unsupported OS' do
     let (:facts) { {
       :operatingsystem => 'RedHat',
       :osfamily        => 'Redhat',
@@ -15,7 +15,7 @@ describe 'dhcp' do
     end
   end
 
-  context 'When on Debian lenny' do
+  context 'when on Debian lenny' do
     let (:facts) { {
       :operatingsystem => 'Debian',
       :osfamily        => 'Debian',
@@ -50,7 +50,7 @@ describe 'dhcp' do
     ) }
   end
 
-  context 'When on Debian squeeze' do
+  context 'when on Debian squeeze' do
     let (:facts) { {
       :operatingsystem => 'Debian',
       :osfamily        => 'Debian',
@@ -85,8 +85,8 @@ describe 'dhcp' do
     ) }
   end
 
-  context 'When passing ddns_update' do
-    context 'When passing wrong type' do
+  context 'when passing ddns_update' do
+    context 'when passing wrong type' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
@@ -103,7 +103,7 @@ describe 'dhcp' do
       end
     end
 
-    context 'When passing valid value' do
+    context 'when passing valid value' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
@@ -122,8 +122,8 @@ describe 'dhcp' do
     end
   end
 
-  context 'When passing authoritative' do
-    context 'When passing wrong type' do
+  context 'when passing authoritative' do
+    context 'when passing wrong type' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
@@ -140,7 +140,7 @@ describe 'dhcp' do
       end
     end
 
-    context 'When passing valid value' do
+    context 'when passing valid value' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
@@ -159,8 +159,8 @@ describe 'dhcp' do
     end
   end
 
-  context 'When passing opts' do
-    context 'When passing wrong type' do
+  context 'when passing opts' do
+    context 'when passing wrong type' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
@@ -177,7 +177,7 @@ describe 'dhcp' do
       end
     end
 
-    context 'When passing valid value' do
+    context 'when passing valid value' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
