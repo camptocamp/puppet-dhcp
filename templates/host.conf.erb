@@ -1,6 +1,5 @@
 <%- @hash_data.sort.each do |host, data|
-  scope.function_validate_hash([data]) -%>
-<%-
+  scope.function_validate_hash([data]) 
   raise Puppet::ParseError, "Missing interfaces hash for host '#{host}'" unless data.has_key? 'interfaces' 
   data.fetch('interfaces').sort.each do |if_name, if_mac|
     scope.function_validate_re([if_name, '^\S+$'])
