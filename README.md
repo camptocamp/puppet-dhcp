@@ -17,11 +17,59 @@ The `dhcp` class is a wrapper around `dhcp::server`:
 
 ### dhcp::server
 
+Installs a DHCP server:
+
+     class { 'dhcp::server':
+       opts => ['domain-name "toto.ltd"',
+                'domain-name-servers 192.168.21.1'],
+     }
+
 ## Definitions
 
 * dhcp::hosts
 * dhcp::shared\_network
 * dhcp::subnet
+
+### dhcp::hosts
+
+Creates a DHCP configuration for the given hosts:
+
+    dhcp::hosts { 'workstations':
+      subnet    => '192.168.1.0',
+       'hash_data' => {
+         'host1' => {
+           'interfaces' => {
+             'eth0'  => '00:11:22:33:44:55',
+             'wlan0' => '00:aa:bb:44:55:ff',
+           },
+         },
+         'host2' => {
+           'interfaces' => {
+             'eth1'  => '00:11:af:33:44:55',
+           },
+           'fixed_address' => 'foo.example.com',
+           'options'        => ['opt1'],
+         },
+       },
+    }
+
+### dhcp::shared\_network
+
+Creates a shared-network entry:
+
+    dhcp::shared_network { 'office':
+      subnets => ['192.168.1.0', '192.168.2.0'],
+    }
+
+### dhcp::subnet
+
+Creates a subnet:
+
+    dhcp::subnet {"10.27.20.0":
+      ensure     => present,
+      broadcast  => "10.27.20.255",
+      other_opts => ['filename "pxelinux.0";', 'next-server 10.27.10.1;'],
+    }
 
 ## Contributing
 

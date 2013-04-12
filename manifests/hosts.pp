@@ -1,6 +1,6 @@
 # Definition: dhcp::hosts
 #
-# Creates a dhcp configuration for given hosts
+# Creates a dhcp configuration for the given hosts
 #
 # Parameters:
 #   ['template']       -  DHCP host template - default: 'dhcp/host.conf.erb'
