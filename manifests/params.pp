@@ -9,18 +9,18 @@ class dhcp::params {
 
     Debian: {
       $config_dir = $::lsbdistcodename? {
-        lenny   => '/etc/dhcp3',
-        squeeze => '/etc/dhcp',
+        lenny            => '/etc/dhcp3',
+        /squeeze|wheezy/ => '/etc/dhcp',
       }
 
       $srv_dhcpd = $::lsbdistcodename? {
-        lenny   => 'dhcp3-server',
-        squeeze => 'isc-dhcp-server',
+        lenny            => 'dhcp3-server',
+        /squeeze|wheezy/ => 'isc-dhcp-server',
       }
 
       $service_pattern = $::lsbdistcodename? {
-        lenny   => '/usr/sbin/dhcpd3',
-        squeeze => '/usr/sbin/dhcpd',
+        lenny            => '/usr/sbin/dhcpd3',
+        /squeeze|wheezy/ => '/usr/sbin/dhcpd',
       }
 
       $server_template = "${module_name}/dhcpd.conf.debian.erb"
