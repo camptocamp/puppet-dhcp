@@ -4,7 +4,6 @@
 #
 class dhcp::server::config {
   include ::dhcp::params
-  include ::concat::setup
 
   validate_string($dhcp::params::config_dir)
   validate_absolute_path($dhcp::params::config_dir)
