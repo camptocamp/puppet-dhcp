@@ -1,5 +1,5 @@
 name         'camptocamp-dhcp'
-version      '0.1.0'
+version      '0.2.0'
 dependency   'puppetlabs/stdlib', '0.0.1'
 dependency   'ripienaar/concat', '0.0.1'
 source       'https://github.com/camptocamp/puppet-dhcp'
