@@ -7,20 +7,20 @@ class dhcp::params {
 
   case $::operatingsystem {
 
-    Debian: {
+    /Debian|Ubuntu/: {
       $config_dir = $::lsbdistcodename? {
-        lenny            => '/etc/dhcp3',
-        /squeeze|wheezy/ => '/etc/dhcp',
+        /lenny|lucid/  => '/etc/dhcp3',
+        /squeeze|wheezy|precise/ => '/etc/dhcp',
       }
 
       $srv_dhcpd = $::lsbdistcodename? {
-        lenny            => 'dhcp3-server',
-        /squeeze|wheezy/ => 'isc-dhcp-server',
+        /lenny|lucid/            => 'dhcp3-server',
+        /squeeze|wheezy|precise/ => 'isc-dhcp-server',
       }
 
       $service_pattern = $::lsbdistcodename? {
-        lenny            => '/usr/sbin/dhcpd3',
-        /squeeze|wheezy/ => '/usr/sbin/dhcpd',
+        /lenny|lucid/           => '/usr/sbin/dhcpd3',
+        /squeeze|wheezy|precise/ => '/usr/sbin/dhcpd',
       }
 
       $server_template = "${module_name}/dhcpd.conf.debian.erb"
