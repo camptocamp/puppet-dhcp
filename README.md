@@ -1,5 +1,8 @@
 # DHCP module for Puppet
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/camptocamp/dhcp.svg)](https://forge.puppetlabs.com/camptocamp/dhcp)
+[![Build Status](https://travis-ci.org/camptocamp/puppet-dhcp.png?branch=master)](https://travis-ci.org/camptocamp/puppet-dhcp)
+
 **Manages dhcp configuration under Debian.**
 
 This module is provided by [Camptocamp](http://www.camptocamp.com/)
