@@ -5,7 +5,9 @@ describe 'dhcp::shared_network' do
   let (:facts) { {
     :operatingsystem => 'Debian',
     :osfamily        => 'Debian',
-    :lsbdistcodename => 'squeeze'
+    :lsbdistcodename => 'squeeze',
+    :id              => 'root',
+    :path            => '/foo/bar'
   } }
 
   context 'when passing wrong value for ensure' do

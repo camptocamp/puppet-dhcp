@@ -8,6 +8,8 @@ describe 'dhcp::subnet' do
     :lsbdistcodename => 'squeeze',
     :netmask_eth0    => '255.255.255.0',
     :domain          => 'example.com',
+    :id              => 'root',
+    :path            => '/foo/bar'
   } }
 
   context 'when passing wrong value for ensure' do

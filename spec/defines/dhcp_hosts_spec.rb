@@ -6,6 +6,8 @@ describe 'dhcp::hosts' do
     :operatingsystem => 'Debian',
     :osfamily        => 'Debian',
     :lsbdistcodename => 'squeeze',
+    :id              => 'root',
+    :path            => '/foo/bar'
   } }
 
   context 'when passing wrong value for ensure' do

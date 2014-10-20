@@ -5,7 +5,9 @@ describe 'dhcp' do
     let (:facts) { {
       :operatingsystem => 'RedHat',
       :osfamily        => 'Redhat',
-      :lsbdistcodename => 'Santiago'
+      :lsbdistcodename => 'Santiago',
+      :id              => 'root',
+      :path            => '/foo/bar'
     } }
 
     it 'should fail' do
@@ -19,7 +21,9 @@ describe 'dhcp' do
     let (:facts) { {
       :operatingsystem => 'Debian',
       :osfamily        => 'Debian',
-      :lsbdistcodename => 'lenny'
+      :lsbdistcodename => 'lenny',
+      :id              => 'root',
+      :path            => '/foo/bar'
     } }
 
     # Package
@@ -54,7 +58,9 @@ describe 'dhcp' do
     let (:facts) { {
       :operatingsystem => 'Debian',
       :osfamily        => 'Debian',
-      :lsbdistcodename => 'squeeze'
+      :lsbdistcodename => 'squeeze',
+      :id              => 'root',
+      :path            => '/foo/bar'
     } }
 
     # Package
@@ -90,7 +96,9 @@ describe 'dhcp' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
-        :lsbdistcodename => 'squeeze'
+        :lsbdistcodename => 'squeeze',
+        :id              => 'root',
+        :path            => '/foo/bar'
       } }
       let (:params) { {
         :server_ddns_update => true
@@ -107,7 +115,9 @@ describe 'dhcp' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
-        :lsbdistcodename => 'squeeze'
+        :lsbdistcodename => 'squeeze',
+        :id              => 'root',
+        :path            => '/foo/bar'
       } }
       let (:params) { {
         :server_ddns_update => 'foo'
@@ -127,7 +137,9 @@ describe 'dhcp' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
-        :lsbdistcodename => 'squeeze'
+        :lsbdistcodename => 'squeeze',
+        :id              => 'root',
+        :path            => '/foo/bar'
       } }
       let (:params) { {
         :server_authoritative => 'foo'
@@ -144,7 +156,9 @@ describe 'dhcp' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
-        :lsbdistcodename => 'squeeze'
+        :lsbdistcodename => 'squeeze',
+        :id              => 'root',
+        :path            => '/foo/bar'
       } }
       let (:params) { {
         :server_authoritative => true
@@ -164,7 +178,9 @@ describe 'dhcp' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
-        :lsbdistcodename => 'squeeze'
+        :lsbdistcodename => 'squeeze',
+        :id              => 'root',
+        :path            => '/foo/bar'
       } }
       let (:params) { {
         :server_opts => 'foo'
@@ -181,7 +197,9 @@ describe 'dhcp' do
       let (:facts) { {
         :operatingsystem => 'Debian',
         :osfamily        => 'Debian',
-        :lsbdistcodename => 'squeeze'
+        :lsbdistcodename => 'squeeze',
+        :id              => 'root',
+        :path            => '/foo/bar'
       } }
       let (:params) { {
         :server_opts => ['foo', 'bar', 'baz']
