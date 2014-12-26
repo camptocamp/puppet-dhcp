@@ -17,5 +17,14 @@
       "name": "puppetlabs/concat",
       "version_requirement": ">= 1.0.0 < 2.0.0"
     }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
   ]
 }
