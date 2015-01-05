@@ -14,6 +14,10 @@ class dhcp::server::config {
   validate_bool($dhcp::server::authoritative)
   validate_array($dhcp::server::opts)
 
+  $ddns_update = $dhcp::server::ddns_update
+  $authoritative = $dhcp::server::authoritative
+  $opts = $dhcp::server::opts
+
   concat {"${dhcp::params::config_dir}/dhcpd.conf":
     owner => root,
     group => root,
