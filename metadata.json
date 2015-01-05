@@ -3,7 +3,7 @@
   "version": "0.4.2",
   "author": "Camptocamp",
   "summary": "Camptocamp DHCP Module",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/camptocamp/puppet-dhcp",
   "project_page": "https://github.com/camptocamp/puppet-dhcp",
   "issues_url": "https://github.com/camptocamp/puppet-dhcp/issues",
