@@ -6,6 +6,8 @@
 #   ['ddns_update']   : ddns-update-style option (defaults to 'none')
 #   ['authoritative'] : a boolean setting whether the DHCP server is
 #                       authoritative (defaults to false)
+#   ['log_facility']  : string containing syslog log levels
+#                       (defaults to local7)
 #   ['opts']          : an array of DHCPD valid options
 #
 # Sample usage:
@@ -36,6 +38,7 @@
 class dhcp::server (
   $ddns_update = 'none',
   $authoritative = false,
+  $log_facility = 'local7',
   $opts = [],
 ) {
   class { '::dhcp::server::packages': } ->
