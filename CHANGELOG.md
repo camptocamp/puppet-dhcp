@@ -1,3 +1,9 @@
+## 2015-02-10 - Release 0.5.0
+
+- Allow the log facility to be configured (GH #9)
+- Various spec and lint improvements
+- Linting
+
 ## 2015-01-19 - Release 0.4.4
 
 - Add puppet-lint plugins
