@@ -36,7 +36,7 @@ class dhcp::server::config {
     recurse => true,
     purge   => true,
     force   => true,
-    source  => "puppet:///modules/${module_name}/empty"
+    source  => "puppet:///modules/${module_name}/empty",
   }
 
   file {"${dhcp::params::config_dir}/subnets":
