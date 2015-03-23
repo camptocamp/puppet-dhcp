@@ -1,3 +1,7 @@
+## 2015-03-23 - Release 0.5.1
+
+- Various spec improvements
+
 ## 2015-02-10 - Release 0.5.0
 
 - Allow the log facility to be configured (GH #9)
