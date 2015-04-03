@@ -1,3 +1,7 @@
+## 2015-04-03 - Release 0.5.2
+
+- Confine rspec pinning to ruby 1.8
+
 ## 2015-03-23 - Release 0.5.1
 
 - Various spec improvements
