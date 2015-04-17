@@ -1,3 +1,8 @@
+## 2015-04-17 - Release 0.5.3
+
+- Fetch fixtures from puppet forge
+- Don't use empty directory workaround
+
 ## 2015-04-03 - Release 0.5.2
 
 - Confine rspec pinning to ruby 1.8
