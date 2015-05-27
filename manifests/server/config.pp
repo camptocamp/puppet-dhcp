@@ -17,6 +17,7 @@ class dhcp::server::config {
   $ddns_update = $dhcp::server::ddns_update
   $authoritative = $dhcp::server::authoritative
   $opts = $dhcp::server::opts
+  $log_facility = $dhcp::server::log_facility
 
   concat {"${dhcp::params::config_dir}/dhcpd.conf":
     owner => root,
