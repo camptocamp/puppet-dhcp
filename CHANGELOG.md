@@ -1,3 +1,7 @@
+## 2015-05-27 - Release 0.5.10
+
+Fix unscoped variable in template
+
 ## 2015-05-26 - Release 0.5.9
 
 Use random application order in nodeset
