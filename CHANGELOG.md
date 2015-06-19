@@ -1,3 +1,7 @@
+## 2015-06-19 - Release 0.5.12
+
+Add support for Ubuntu 14.04
+
 ## 2015-05-28 - Release 0.5.11
 
 Add beaker_spec_helper to Gemfile
