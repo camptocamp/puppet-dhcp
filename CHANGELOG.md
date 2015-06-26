@@ -1,3 +1,7 @@
+## 2015-06-26 - Release 0.5.13
+
+Fix strict_variables activation with rspec-puppet 2.2
+
 ## 2015-06-19 - Release 0.5.12
 
 Add support for Ubuntu 14.04
