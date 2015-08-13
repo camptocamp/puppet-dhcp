@@ -2,22 +2,6 @@ require 'spec_helper'
 
 describe 'dhcp' do
 
-  context 'when on an unsupported OS' do
-    let (:facts) { {
-      :operatingsystem => 'RedHat',
-      :osfamily        => 'Redhat',
-      :lsbdistcodename => 'Santiago',
-      :id              => 'root',
-      :path            => '/foo/bar'
-    } }
-
-    it 'should fail' do
-      expect {
-        should contain_package('dhcp-server')
-      }.to raise_error(Puppet::Error, /Unsupported OS RedHat\/Santiago/)
-    end
-  end
-
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do

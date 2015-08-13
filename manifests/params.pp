@@ -4,31 +4,8 @@
 # Set variables for names and paths
 #
 class dhcp::params {
-
-  case $::operatingsystem {
-
-    /Debian|Ubuntu/: {
-      $config_dir = $::lsbdistcodename? {
-        /lenny|lucid/  => '/etc/dhcp3',
-        /squeeze|wheezy|precise|trusty/ => '/etc/dhcp',
-      }
-
-      $srv_dhcpd = $::lsbdistcodename? {
-        /lenny|lucid/            => 'dhcp3-server',
-        /squeeze|wheezy|precise|trusty/ => 'isc-dhcp-server',
-      }
-
-      $service_pattern = $::lsbdistcodename? {
-        /lenny|lucid/           => '/usr/sbin/dhcpd3',
-        /squeeze|wheezy|precise|trusty/ => '/usr/sbin/dhcpd',
-      }
-
-      $server_template = "${module_name}/dhcpd.conf.debian.erb"
-    }
-
-    default: {
-      fail "Unsupported OS ${::operatingsystem}/${::lsbdistcodename}"
-    }
-
-  }
+  $config_dir = '/etc/dhcp'
+  $srv_dhcpd = 'isc-dhcp-server'
+  $service_pattern = '/usr/sbin/dhcpd'
+  $server_template = "${module_name}/dhcpd.conf.debian.erb"
 }
