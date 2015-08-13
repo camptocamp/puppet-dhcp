@@ -1,3 +1,7 @@
+## 2015-08-13 - Release 1.0.0
+
+Remove lenny and lucid support
+
 ## 2015-06-26 - Release 0.5.13
 
 Fix strict_variables activation with rspec-puppet 2.2
