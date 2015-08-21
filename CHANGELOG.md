@@ -1,3 +1,7 @@
+## 2015-08-21 - Release 1.0.1
+
+Use docker for acceptance tests
+
 ## 2015-08-13 - Release 1.0.0
 
 Remove lenny and lucid support
