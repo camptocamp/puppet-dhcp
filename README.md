@@ -32,6 +32,7 @@ Installs a DHCP server:
 * dhcp::hosts
 * dhcp::shared\_network
 * dhcp::subnet
+* dhcp::failover
 
 ### dhcp::hosts
 
@@ -73,6 +74,34 @@ Creates a subnet:
       broadcast  => "10.27.20.255",
       other_opts => ['filename "pxelinux.0";', 'next-server 10.27.10.1;'],
     }
+
+## dhcp::failover
+
+Creates a failover peer:
+
+    dhcp::failover {'my-failover-peer':
+      ensure       => present,
+      peer_address => '1.2.3.4',
+      options      => {
+        'max-response-delay'       => 30,
+        'max-unacked-updates'      => 10,
+        'load balance max seconds' => 3,
+        'mclt'                     => 1800,
+        'split'                    => 128,
+      }
+    }
+    dhcp::subnet {"10.27.20.0":
+      ensure     => present,
+      broadcast  => "10.27.20.255",
+      other_opts => [
+        'pool {',
+        'failover peer "my-failover-peer";',
+        'max-lease-time 1800;',
+        'range 10.27.20.100 10.27.20.250;',
+        '}',
+      ],
+    }
+
 
 ## Contributing
 
