@@ -1,3 +1,7 @@
+## 2015-11-02 - Release 1.1.0
+
+Add support for "failover"
+
 ## 2015-08-21 - Release 1.0.1
 
 Use docker for acceptance tests
