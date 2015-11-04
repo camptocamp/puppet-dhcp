@@ -3,6 +3,10 @@ require 'spec_helper'
 describe 'dhcp::subnet' do
   let (:title) { '1.2.3.4' }
 
+  let(:pre_condition) do
+    "class { '::dhcp::server': }"
+  end
+
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
