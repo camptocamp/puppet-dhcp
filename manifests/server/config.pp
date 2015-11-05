@@ -52,4 +52,11 @@ class dhcp::server::config {
     purge   => true,
     force   => true,
   }
+
+  file {"${dhcp::params::config_dir}/failover.d":
+    ensure  => directory,
+    recurse => true,
+    purge   => true,
+    force   => true,
+  }
 }
