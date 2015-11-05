@@ -19,10 +19,18 @@ subnet <%= @name %> netmask <%= _netmask %> {
   scope.function_validate_re([_domain_name, '^\S+$']) -%>
   option domain-name "<%= _domain_name %>";
 <% unless @other_opts.empty? -%>
-  <% if @other_opts.is_a?(Array) -%>
-<%= @other_opts.collect! {|i| "  #{i};"}.join("\n") %>
-  <% else -%>
+<%
+if @other_opts.is_a?(Array)
+  @other_opts.each do |i|
+    if i =~ /(\{|\})/
+-%>
+  <%= i %>
+<%- else -%>
+  <%= i %>;
+<% end -%>
+<% end -%>
+<% else -%>
   <%= @other_opts %>;
-  <% end -%>
+<% end -%>
 <% end -%>
 }
