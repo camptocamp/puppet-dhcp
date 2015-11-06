@@ -21,7 +21,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /"foo" does not match \["present", "absent"\]/)
         end
       end
@@ -34,7 +34,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /true is not a string\./)
         end
       end
@@ -47,7 +47,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /is not a valid IPv4 address\./)
         end
       end
@@ -55,7 +55,7 @@ describe 'dhcp::failover' do
       context 'when not passing peer_address' do
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /Must pass peer_address to Dhcp::Failover/)
         end
       end
@@ -67,7 +67,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /true is not a string\./)
         end
       end
@@ -79,7 +79,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /is not a valid IPv4 address\./)
         end
       end
@@ -92,7 +92,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /Expected first argument to be an Integer/)
         end
       end
@@ -105,7 +105,7 @@ describe 'dhcp::failover' do
 
         it 'should fail' do
           expect {
-            should contain_file('/etc/dhcp/failover/failover-dhcp.conf')
+            should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
           }.to raise_error(Puppet::Error, /Expected first argument to be an Integer/)
         end
       end
@@ -117,7 +117,7 @@ describe 'dhcp::failover' do
           :peer_address => '1.2.3.4',
         } }
 
-        it { should contain_file('/etc/dhcp/failover/failover-dhcp.conf').with(
+        it { should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf').with(
           :ensure  => 'file',
           :owner   => 'root',
           :group   => 'root'
@@ -135,7 +135,7 @@ describe 'dhcp::failover' do
           /peer port 647;\n/
         ) }
         it { should contain_concat__fragment('dhcp.failover.failover-dhcp').with({
-          :content => "include \"/etc/dhcp/failover/failover-dhcp.conf\";\n",
+          :content => "include \"/etc/dhcp/failover.d/failover-dhcp.conf\";\n",
           :target  => '/etc/dhcp/dhcpd.conf',
         })}
       end
@@ -152,7 +152,7 @@ describe 'dhcp::failover' do
           },
         } }
 
-        it { should contain_file('/etc/dhcp/failover/failover-dhcp.conf').with({
+        it { should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf').with({
           :ensure  => 'file',
           :owner   => 'root',
           :group   => 'root'
@@ -183,7 +183,7 @@ describe 'dhcp::failover' do
           :role         => 'secondary',
         } }
 
-        it { should contain_file('/etc/dhcp/failover/failover-dhcp.conf').with({
+        it { should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf').with({
           :ensure  => 'file',
           :owner   => 'root',
           :group   => 'root'
