@@ -1,3 +1,8 @@
+## 2015-11-06 - Release 1.1.1
+
+- Added acceptance tests
+- Some corrections for a correct failover support
+
 ## 2015-11-02 - Release 1.1.0
 
 Add support for "failover"
