@@ -23,7 +23,7 @@ define dhcp::failover(
     default   => $ensure,
   }
 
-  file {"${dhcp::params::config_dir}/failover/${name}.conf":
+  file {"${dhcp::params::config_dir}/failover.d/${name}.conf":
     ensure  => $_ensure,
     content => template("${module_name}/failover.conf.erb"),
     group   => 'root',
@@ -34,7 +34,7 @@ define dhcp::failover(
 
   concat::fragment {"dhcp.failover.${name}":
     ensure  => $ensure,
-    content => "include \"${dhcp::params::config_dir}/failover/${name}.conf\";\n",
+    content => "include \"${dhcp::params::config_dir}/failover.d/${name}.conf\";\n",
     target  => "${dhcp::params::config_dir}/dhcpd.conf",
   }
 
