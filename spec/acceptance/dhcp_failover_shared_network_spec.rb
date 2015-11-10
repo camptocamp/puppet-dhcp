@@ -23,9 +23,9 @@ describe 'dhcp::failover with dhcp::shared_network' do
       }
       $ipaddr = split($::networking['interfaces']['eth0']['ip'], '[.]')
       $sub = "${ipaddr[0]}.${ipaddr[1]}"
-      dhcp::subnet {$::networking['interfaces']['eth0']['network']:
+      dhcp::subnet {${sub}.10.0:
         broadcast   => "${sub}.10.255",
-        subnet_mask => $::networking['interfaces']['eth0']['netmask'],
+        subnet_mask => '255.255.0.0',
         domain_name => 'example.com',
         other_opts  => [
           "option domain-name-servers ${sub}.10.1, ${sub}.10.2",
@@ -34,9 +34,9 @@ describe 'dhcp::failover with dhcp::shared_network' do
           '}',
         ]
       }
-      dhcp::subnet {$::networking['interfaces']['eth0']['network']:
+      dhcp::subnet {${sub}.11.0:
         broadcast   => "${sub}.11.255",
-        subnet_mask => $::networking['interfaces']['eth0']['netmask'],
+        subnet_mask => '255.255.0.0',
         domain_name => 'example.com',
         other_opts  => [
           "option domain-name-servers ${sub}.11.1, ${sub}.11.2",
@@ -45,9 +45,9 @@ describe 'dhcp::failover with dhcp::shared_network' do
           '}',
         ]
       }
-      dhcp::subnet {$::networking['interfaces']['eth0']['network']:
+      dhcp::subnet {${sub}.12.0:
         broadcast   => "${sub}.12.255",
-        subnet_mask => $::networking['interfaces']['eth0']['netmask'],
+        subnet_mask => '255.255.0.0',
         domain_name => 'example.com',
         other_opts  => [
           "option domain-name-servers ${sub}.12.1, ${sub}.12.2",
