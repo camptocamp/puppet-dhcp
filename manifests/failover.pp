@@ -32,7 +32,7 @@ define dhcp::failover(
     owner   => 'root',
   }
 
-  concat::fragment {"dhcp.failover.${name}":
+  concat::fragment {"01.dhcp.failover.${name}":
     ensure  => $ensure,
     content => "include \"${dhcp::params::config_dir}/failover.d/${name}.conf\";\n",
     target  => "${dhcp::params::config_dir}/dhcpd.conf",

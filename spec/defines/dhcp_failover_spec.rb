@@ -134,7 +134,7 @@ describe 'dhcp::failover' do
         ).with_content(
           /peer port 647;\n/
         ) }
-        it { should contain_concat__fragment('dhcp.failover.failover-dhcp').with({
+        it { should contain_concat__fragment('01.dhcp.failover.failover-dhcp').with({
           :content => "include \"/etc/dhcp/failover.d/failover-dhcp.conf\";\n",
           :target  => '/etc/dhcp/dhcpd.conf',
         })}
