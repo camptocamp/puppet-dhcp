@@ -33,7 +33,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /Must pass hash_data to Dhcp::Hosts/)
+          }.to raise_error(Puppet::Error, /hash_data/)
         end
       end
 
@@ -58,7 +58,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /Must pass subnet to Dhcp::Hosts/)
+          }.to raise_error(Puppet::Error, /subnet/)
         end
       end
 

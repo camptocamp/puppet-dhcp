@@ -56,7 +56,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /Must pass peer_address to Dhcp::Failover/)
+          }.to raise_error(Puppet::Error, /peer_address/)
         end
       end
 

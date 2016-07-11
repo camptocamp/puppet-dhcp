@@ -33,7 +33,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /Must pass broadcast to Dhcp::Subnet/)
+          }.to raise_error(Puppet::Error, /broadcast/)
         end
       end
 
