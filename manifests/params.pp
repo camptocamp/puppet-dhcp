@@ -5,7 +5,7 @@
 #
 class dhcp::params {
   case $::osfamily {
-    /RedHat/: {
+    'RedHat': {
       $package_dhcpd = 'dhcp'
       $srv_dhcpd = 'dhcpd'
     }
