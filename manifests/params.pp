@@ -9,9 +9,12 @@ class dhcp::params {
       $package_dhcpd = 'dhcp'
       $srv_dhcpd = 'dhcpd'
     }
-    default: {
+    'Debian': {
       $package_dhcpd = 'isc-dhcp-server'
       $srv_dhcpd = 'isc-dhcp-server'
+    }
+    default: {
+      fail('::dhcp not supported on this OS')
     }
   }
   $config_dir = '/etc/dhcp'
