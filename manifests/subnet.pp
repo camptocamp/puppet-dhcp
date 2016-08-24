@@ -26,7 +26,7 @@
 define dhcp::subnet(
   $broadcast,
   $ensure = present,
-  $netmask = undef,
+  $netmask = $::netmask,
   $routers = [],
   $subnet_mask = undef,
   $domain_name = undef,
