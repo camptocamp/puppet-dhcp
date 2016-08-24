@@ -36,12 +36,16 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
+	"5",
+	"6",
         "7"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
+	"5",
+	"6",
         "7"
       ]
     }
