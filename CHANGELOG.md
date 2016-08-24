@@ -1,3 +1,14 @@
+## 2016-08-24 - Release 1.2.0
+
+- Fix error checking tests
+- Update testing framework
+- Use $::netmask as default for $dhcp::subnet::netmask (GH #20)
+- Add RedHat/CentOS support (GH #19)
+
+## 2016-06-20 - Release 1.1.2
+
+- Modulesync
+
 ## 2015-11-06 - Release 1.1.1
 
 - Added acceptance tests
