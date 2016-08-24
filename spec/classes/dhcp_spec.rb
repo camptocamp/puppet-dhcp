@@ -24,6 +24,11 @@ describe 'dhcp' do
           let(:srv_name) { 'isc-dhcp-server' }
           let(:srv_pattern) { '/usr/sbin/dhcpd' }
         end
+      when 'RedHat'
+        let(:pkg_name) { 'dhcp' }
+        let(:confdir) { '/etc/dhcp' }
+        let(:srv_name) { 'dhcpd' }
+        let(:srv_pattern) { '/usr/sbin/dhcpd' }
       end
 
       # Package

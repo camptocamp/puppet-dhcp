@@ -6,7 +6,7 @@
 subnet <%= @name %> netmask <%= _netmask %> {
 <%-
   _routers = @routers unless @routers.empty?
-  _routers ||= [scope.lookupvar('::netmask_eth0')]
+  _routers ||= [scope.lookupvar('::netmask')]
   scope.function_validate_array([_routers]) -%>
   option routers <%= _routers.collect! {|i| "#{i}" }.join(',') %>;
 <%-
