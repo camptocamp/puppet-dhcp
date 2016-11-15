@@ -192,9 +192,8 @@ describe 'dhcp::subnet' do
           :is_shared => true,
         } }
 
-        it { should contain_concat__fragment('dhcp.subnet.1.2.3.4').with(
-          :ensure  => 'absent'
-        ) }
+        it { should_not contain_concat__fragment('dhcp.subnet.1.2.3.4')
+        }
       end
 
       context 'when passing other_opts as array' do
