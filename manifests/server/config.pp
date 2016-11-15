@@ -26,7 +26,6 @@ class dhcp::server::config {
   }
 
   concat::fragment {'00.dhcp.server.base':
-    ensure  => present,
     target  => "${dhcp::params::config_dir}/dhcpd.conf",
     content => template($dhcp::params::server_template),
   }

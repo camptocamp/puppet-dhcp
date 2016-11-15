@@ -30,11 +30,12 @@ define dhcp::shared_network(
               "\$ensure must be either 'present' or 'absent', got '${ensure}'")
   validate_array($subnets)
 
-  concat::fragment {"dhcp-shared-${name}":
-    ensure  => $ensure,
-    target  => "${dhcp::params::config_dir}/dhcpd.conf",
-    content => template("${module_name}/shared-network.erb"),
-    require => Dhcp::Subnet[$subnets],
+  if $ensure == 'present' {
+    concat::fragment {"dhcp-shared-${name}":
+      target  => "${dhcp::params::config_dir}/dhcpd.conf",
+      content => template("${module_name}/shared-network.erb"),
+      require => Dhcp::Subnet[$subnets],
+    }
   }
 
 }
