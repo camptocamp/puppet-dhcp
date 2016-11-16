@@ -18,13 +18,13 @@ define dhcp::failover(
 
   include ::dhcp::params
 
-  $_ensure = $ensure? {
+  $my_ensure = $ensure? {
     'present' => 'file',
     default   => $ensure,
   }
 
   file {"${dhcp::params::config_dir}/failover.d/${name}.conf":
-    ensure  => $_ensure,
+    ensure  => $my_ensure,
     content => template("${module_name}/failover.conf.erb"),
     group   => 'root',
     mode    => '0644',
@@ -32,10 +32,11 @@ define dhcp::failover(
     owner   => 'root',
   }
 
-  concat::fragment {"dhcp.failover.${name}":
-    ensure  => $ensure,
-    content => "include \"${dhcp::params::config_dir}/failover.d/${name}.conf\";\n",
-    target  => "${dhcp::params::config_dir}/dhcpd.conf",
+  if $ensure == 'present' {
+    concat::fragment {"dhcp.failover.${name}":
+      content => "include \"${dhcp::params::config_dir}/failover.d/${name}.conf\";\n",
+      target  => "${dhcp::params::config_dir}/dhcpd.conf",
+    }
   }
 
 }

@@ -37,7 +37,6 @@ describe 'dhcp::shared_network' do
 
       context 'when passing no parameters' do
         it { should contain_concat__fragment('dhcp-shared-My network').with(
-          :ensure  => 'present',
           :target  => '/etc/dhcp/dhcpd.conf'
         ).with_content(
           /shared-network My network \{\n\}/
@@ -75,7 +74,6 @@ describe 'dhcp::shared_network' do
         } }
 
         it { should contain_concat__fragment('dhcp-shared-My network').with(
-          :ensure => 'present',
           :target => '/etc/dhcp/dhcpd.conf'
         ).with_content(
           /shared-network My network \{\n  include "\/etc\/dhcp\/subnets\/1\.2\.3\.4\.conf";\n  include "\/etc\/dhcp\/subnets\/5\.6\.7\.8\.conf";\n\}/)

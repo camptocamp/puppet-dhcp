@@ -44,7 +44,6 @@ describe 'dhcp' do
       ) }
 
       it { should contain_concat__fragment('00.dhcp.server.base').with(
-        :ensure  => 'present',
         :target  => "#{confdir}/dhcpd.conf",
         :content => /log-facility/
       ).with_content(/ddns-update-style none;/).with_content(/#authoritative/)
@@ -77,7 +76,6 @@ describe 'dhcp' do
           } }
 
           it { should contain_concat__fragment('00.dhcp.server.base').with(
-            :ensure  => 'present',
             :target  => '/etc/dhcp/dhcpd.conf',
             :content => /log-facility/
           ).with_content(/ddns-update-style foo;/).with_content(/#authoritative/)
@@ -104,7 +102,6 @@ describe 'dhcp' do
           } }
 
           it { should contain_concat__fragment('00.dhcp.server.base').with(
-            :ensure  => 'present',
             :target  => '/etc/dhcp/dhcpd.conf',
             :content => /log-facility/
           ).with_content(/ddns-update-style none;/).with_content(/[^#]authoritative/)
@@ -131,7 +128,6 @@ describe 'dhcp' do
           } }
 
           it { should contain_concat__fragment('00.dhcp.server.base').with(
-            :ensure  => 'present',
             :target  => '/etc/dhcp/dhcpd.conf',
             :content => /log-facility/
           ).with_content(/ddns-update-style none;/).with_content(/#authoritative/).with_content(/foo;\nbar;\nbaz;\n/)
