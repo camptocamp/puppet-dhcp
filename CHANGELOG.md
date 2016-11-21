@@ -1,3 +1,7 @@
+## 2016-11-21 - Release 1.2.1
+
+- ensure compatibility with concat >= 2.0.0
+
 ## 2016-08-24 - Release 1.2.0
 
 - Fix error checking tests
