@@ -41,7 +41,7 @@ class dhcp::server (
   $log_facility = 'local7',
   $opts = [],
 ) {
-  class { '::dhcp::server::packages': } ->
-  class { '::dhcp::server::config': } ~>
-  class { '::dhcp::server::service': }
+  class { '::dhcp::server::packages': }
+  -> class { '::dhcp::server::config': }
+  ~> class { '::dhcp::server::service': }
 }
