@@ -19,7 +19,7 @@ describe 'dhcp::shared_network' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp-shared-My network')
-          }.to raise_error(Puppet::Error, /\$ensure must be either 'present' or 'absent', got 'running'/)
+          }.to raise_error(Puppet::Error, /got 'running'/)
         end
       end
 
@@ -31,7 +31,7 @@ describe 'dhcp::shared_network' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp-shared-My network')
-          }.to raise_error(Puppet::Error, /true is not an Array\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -52,7 +52,7 @@ describe 'dhcp::shared_network' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp-shared-My network')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -64,7 +64,7 @@ describe 'dhcp::shared_network' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp-shared-My network')
-          }.to raise_error(Puppet::Error, /"wrong value" does not match/)
+          }.to raise_error(Puppet::Error, /got 'wrong value'/)
         end
       end
 
@@ -72,6 +72,15 @@ describe 'dhcp::shared_network' do
         let (:params) { {
           :subnets => ['1.2.3.4', '5.6.7.8'],
         } }
+
+        let (:pre_condition) do
+            "
+            include ::dhcp::server
+            ::dhcp::subnet { ['1.2.3.4', '5.6.7.8']:
+              broadcast => '10.0.0.1',
+            }
+            "
+        end
 
         it { should contain_concat__fragment('dhcp-shared-My network').with(
           :target => '/etc/dhcp/dhcpd.conf'

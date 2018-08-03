@@ -58,28 +58,25 @@
 #   - ripienaar/concat
 #
 define dhcp::hosts (
-  $hash_data,
-  $subnet,
-  $ensure = present,
-  $global_options = [],
-  $template = "${module_name}/host.conf.erb",
+  Dhcp::Hosts_data                  $hash_data,
+  Stdlib::Ipv4                      $subnet,
+  Enum['present', 'absent']         $ensure = present,
+  Variant[Array[String], String]    $global_options = [],
+  Pattern['\.epp$']                 $template = "${module_name}/host.conf.epp",
 ) {
 
   include ::dhcp::params
 
-  validate_string($ensure)
-  validate_re($ensure, ['present', 'absent'],
-              "\$ensure must be either 'present' or 'absent', got '${ensure}'")
-  validate_hash($hash_data)
-  validate_string($subnet)
-  validate_re($subnet, '^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$')
-  validate_array($global_options)
-  validate_string($template)
-
   if $ensure == 'present' {
     concat::fragment {"dhcp.host.${name}":
       target  => "${dhcp::params::config_dir}/hosts.d/${subnet}.conf",
-      content => template($template),
+      content => epp(
+        $template,
+        {
+          hash_data      => $hash_data,
+          global_options => flatten([$global_options]),
+        },
+      ),
       notify  => Service['dhcpd'],
     }
   }

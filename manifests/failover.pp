@@ -1,20 +1,12 @@
 define dhcp::failover(
-  $peer_address,
-  $ensure    = present,
-  $address   = $::ipaddress,
-  $peer_port = 647,
-  $port      = 647,
-  $options   = {},
-  $role      = 'primary',
+  Stdlib::Ipv4                 $peer_address,
+  Enum['present', 'absent']    $ensure    = present,
+  Stdlib::Ipv4                 $address   = $::ipaddress,
+  Integer                      $peer_port = 647,
+  Integer                      $port      = 647,
+  Hash                         $options   = {},
+  Enum['primary', 'secondary'] $role      = 'primary',
 ) {
-
-  validate_re($ensure, ['present', 'absent'])
-  validate_ipv4_address($address)
-  validate_ipv4_address($peer_address)
-  validate_integer($port)
-  validate_integer($peer_port)
-  validate_hash($options)
-  validate_re($role, ['primary', 'secondary'])
 
   include ::dhcp::params
 
@@ -25,7 +17,18 @@ define dhcp::failover(
 
   file {"${dhcp::params::config_dir}/failover.d/${name}.conf":
     ensure  => $my_ensure,
-    content => template("${module_name}/failover.conf.erb"),
+    content => epp(
+      "${module_name}/failover.conf.epp",
+      {
+        name         => $name,
+        role         => $role,
+        address      => $address,
+        peer_address => $peer_address,
+        port         => $port,
+        peer_port    => $peer_port,
+        options      => $options,
+      },
+    ),
     group   => 'root',
     mode    => '0644',
     notify  => Service['dhcpd'],

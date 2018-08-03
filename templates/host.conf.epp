@@ -1,0 +1,22 @@
+<%- |
+  Dhcp::Hosts_data $hash_data,
+  Array[String]    $global_options,
+| -%>
+<%- $hash_data.each |String $host, Hash $data| {
+  $data['interfaces'].each |$if_name, $if_mac| { -%>
+host <%= $host %>-<%= $if_name %> {
+  hardware ethernet <%= $if_mac %>;
+<%- $fixed_address = pick($data['fixed_address'], $host) -%>
+  fixed-address <%= $fixed_address %>;
+<%-
+$options = pick($data['options'], $global_options)
+unless empty($options) {
+-%>
+  <%= $options.join(";\n") %>;
+<%- } -%>
+}
+
+<%-
+  }
+}
+-%>

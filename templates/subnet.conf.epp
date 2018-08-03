@@ -1,0 +1,29 @@
+<%- |
+  String              $name,
+  Stdlib::Ipv4        $netmask,
+  Array[Stdlib::Ipv4] $routers,
+  Stdlib::Ipv4        $subnet_mask,
+  Stdlib::Ipv4        $broadcast,
+  Pattern[/^\S+$/]    $domain_name,
+  Array[String]       $other_opts,
+| -%>
+# File managed by puppet
+
+subnet <%= $name %> netmask <%= $netmask %> {
+  option routers <%= join($routers, ',') %>;
+  option subnet-mask <%= $subnet_mask %>;
+  option broadcast-address <%= $broadcast %>;
+  option domain-name "<%= $domain_name %>";
+<%- $other_opts.each |String $i| {
+  if $i =~ /(\{|\})/ {
+-%>
+  <%= $i %>
+<%-
+  } else {
+-%>
+  <%= $i %>;
+<%-
+  }
+}
+%>
+}

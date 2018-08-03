@@ -24,32 +24,19 @@
 #   }
 #
 define dhcp::subnet(
-  $broadcast,
-  $ensure = present,
-  $netmask = $::netmask,
-  $routers = [],
-  $subnet_mask = undef,
-  $domain_name = undef,
-  $other_opts = [],
-  $is_shared = false
+  Stdlib::Ipv4                      $broadcast,
+  Enum['present', 'absent']         $ensure = present,
+  Stdlib::Ipv4                      $netmask = $::netmask,
+  Array[Stdlib::Ipv4]               $routers = [$::netmask],
+  Stdlib::Ipv4                      $subnet_mask = $::netmask,
+  Pattern[/^\S+$/]                  $domain_name = $::domain,
+  Variant[Array[String], String]    $other_opts = [],
+  Boolean                           $is_shared = false
 ) {
 
   Dhcp::Subnet[$title] ~> Class['dhcp::server::service']
 
   include ::dhcp::params
-
-  $ip_re = '^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$'
-
-  validate_string($ensure)
-  validate_re($ensure, ['present', 'absent'],
-              "\$ensure must be either 'present' or 'absent', got '${ensure}'")
-  validate_string($broadcast)
-  validate_re($broadcast, $ip_re)
-  validate_string($netmask)
-  validate_array($routers)
-  validate_string($subnet_mask)
-  validate_string($domain_name)
-  validate_bool($is_shared)
 
   concat {"${dhcp::params::config_dir}/hosts.d/${name}.conf":
     owner => root,
@@ -61,7 +48,18 @@ define dhcp::subnet(
     ensure  => $ensure,
     owner   => root,
     group   => root,
-    content => template("${module_name}/subnet.conf.erb"),
+    content => epp(
+      "${module_name}/subnet.conf.epp",
+      {
+        name        => $name,
+        netmask     => $netmask,
+        routers     => $routers,
+        subnet_mask => $subnet_mask,
+        broadcast   => $broadcast,
+        domain_name => $domain_name,
+        other_opts  => flatten([$other_opts]),
+      },
+    ),
     notify  => Service['dhcpd'],
   }
 

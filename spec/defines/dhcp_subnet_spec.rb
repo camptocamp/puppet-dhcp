@@ -13,6 +13,7 @@ describe 'dhcp::subnet' do
         facts.merge({
           :concat_basedir => '/var/lib/puppet/concat',
           :domain         => 'example.com',
+          :netmask        => '255.255.255.0',
         })
       end
 
@@ -25,7 +26,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /\$ensure must be either 'present' or 'absent', got 'running'/)
+          }.to raise_error(Puppet::Error, /got 'running'/)
         end
       end
 
@@ -45,7 +46,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -57,7 +58,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /"foo" does not match/)
+          }.to raise_error(Puppet::Error, /got 'foo'/)
         end
       end
 
@@ -70,7 +71,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -83,7 +84,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /"foo" does not match/)
+          }.to raise_error(Puppet::Error, /got 'foo'/)
         end
       end
 
@@ -96,7 +97,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /true is not an Array\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -109,7 +110,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -122,7 +123,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -135,7 +136,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /"foo" is not a boolean\./)
+          }.to raise_error(Puppet::Error, /got String/)
         end
       end
 
