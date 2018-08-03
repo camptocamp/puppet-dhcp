@@ -13,6 +13,10 @@ describe 'dhcp::failover' do
         })
       end
 
+      let(:pre_condition) do
+          "include dhcp::server"
+      end
+
       context 'when passing wrong value for ensure' do
         let (:params) { {
           :ensure       => 'foo',
@@ -22,7 +26,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /"foo" does not match \["present", "absent"\]/)
+          }.to raise_error(Puppet::Error, /got 'foo'/)
         end
       end
 
@@ -35,7 +39,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -48,7 +52,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /is not a valid IPv4 address\./)
+          }.to raise_error(Puppet::Error, /got 'foo'/)
         end
       end
 
@@ -68,7 +72,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -80,7 +84,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /is not a valid IPv4 address\./)
+          }.to raise_error(Puppet::Error, /got 'foo'/)
         end
       end
 
@@ -93,7 +97,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /Expected first argument to be an Integer/)
+          }.to raise_error(Puppet::Error, /got String/)
         end
       end
 
@@ -106,7 +110,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /Expected first argument to be an Integer/)
+          }.to raise_error(Puppet::Error, /got String/)
         end
       end
 

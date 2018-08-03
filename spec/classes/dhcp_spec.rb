@@ -66,7 +66,7 @@ describe 'dhcp' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('00.dhcp.server.base')
-            }.to raise_error(Puppet::Error, /true is not a string./)
+            }.to raise_error(Puppet::Error, /true is not/)
           end
         end
 
@@ -92,7 +92,7 @@ describe 'dhcp' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('00.dhcp.server.base')
-            }.to raise_error(Puppet::Error, /"foo" is not a boolean./)
+            }.to raise_error(Puppet::Error, /"foo" is not/)
           end
         end
 
@@ -118,7 +118,7 @@ describe 'dhcp' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('00.dhcp.server.base')
-            }.to raise_error(Puppet::Error, /"foo" is not an Array./)
+            }.to raise_error(Puppet::Error, /"foo" is not/)
           end
         end
 

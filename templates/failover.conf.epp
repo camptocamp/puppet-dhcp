@@ -1,0 +1,19 @@
+<%- |
+  String       $name,
+  String       $role,
+  Stdlib::Ipv4 $address,
+  Stdlib::Ipv4 $peer_address,
+  Integer      $port,
+  Integer      $peer_port,
+  Hash         $options,
+| -%>
+failover peer "<%= $name %>" {
+  <%= $role %>;
+  address <%= $address %>;
+  port <%= $port %>;
+  peer address <%= $peer_address %>;
+  peer port <%= $peer_port %>;
+<%- $options.each |String $k, Variant[String,Integer] $v| { -%>
+  <%= $k %> <%= $v %>;
+<%- } -%>
+}

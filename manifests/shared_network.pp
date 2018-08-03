@@ -19,21 +19,23 @@
 #   - subnets must have $is_shared set to true (default is false)
 #
 define dhcp::shared_network(
-  $ensure  = present,
-  $subnets = [],
+  Enum['present', 'absent'] $ensure  = present,
+  Array[Stdlib::Ipv4]       $subnets = [],
 ) {
 
   include ::dhcp::params
 
-  validate_string($ensure)
-  validate_re($ensure, ['present', 'absent'],
-              "\$ensure must be either 'present' or 'absent', got '${ensure}'")
-  validate_array($subnets)
-
   if $ensure == 'present' {
     concat::fragment {"dhcp-shared-${name}":
       target  => "${dhcp::params::config_dir}/dhcpd.conf",
-      content => template("${module_name}/shared-network.erb"),
+      content => epp(
+        "${module_name}/shared-network.epp",
+        {
+          name       => $name,
+          subnets    => $subnets,
+          config_dir => $::dhcp::params::config_dir,
+        },
+      ),
       require => Dhcp::Subnet[$subnets],
     }
   }

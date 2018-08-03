@@ -3,3 +3,11 @@
   acceptance:
     - '*'
   forge_password: "vAwCsf7dOPitWzwZFk/nKa8vCqkpvBHc/Ik9lgJHpp1f/FY+ywetifCFHtCCiaJnvmLfsolB3m6oh7XmxVfToXNb7Lcr/qwngoFI0AMDOQH3P8WXN5xTuBFWYZTz3ffjllHZGwykVPgd1DgGbStlXFZST8OoCEpRGFGf9nPxNrU="
+  allow_failures:
+  - rvm: default
+    sudo: required
+    dist: trusty
+    services: docker
+    env: BEAKER_set="debian-6"
+    bundler_args:
+    script: sudo service docker restart ; sleep 10 && bundle exec rspec spec/acceptance/*_spec.rb

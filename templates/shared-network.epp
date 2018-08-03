@@ -1,0 +1,12 @@
+<%- |
+  String               $name,
+  Array[Stdlib::Ipv4]  $subnets,
+  Stdlib::Absolutepath $config_dir,
+| -%>
+#### dhcp::shared_network <%= $name %>
+shared-network <%= $name %> {
+<%- $subnets.each |String $subnet| { -%>
+  include "<%= $config_dir %>/subnets/<%= $subnet %>.conf";
+<%- } -%>
+}
+#### END <%= $name %>

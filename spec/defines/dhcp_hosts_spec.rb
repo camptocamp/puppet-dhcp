@@ -11,6 +11,10 @@ describe 'dhcp::hosts' do
         })
       end
 
+      let(:pre_condition) do
+        "include ::dhcp::server"
+      end
+
       context 'when passing wrong value for ensure' do
         let (:params) { {
           :hash_data => {},
@@ -21,7 +25,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /\$ensure must be either 'present' or 'absent', got 'running'/)
+          }.to raise_error(Puppet::Error, /got 'running'/)
         end
       end
 
@@ -46,7 +50,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /"foo" is not a Hash\./)
+          }.to raise_error(Puppet::Error, /got String/)
         end
       end
 
@@ -71,7 +75,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -84,21 +88,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /"foo" does not match/)
-        end
-      end
-
-      context 'when passing wrong type for global_options' do
-        let (:params) { {
-          :hash_data      => {},
-          :subnet         => '1.2.3.4',
-          :global_options => 'foo'
-        } }
-
-        it 'should fail' do
-          expect {
-            should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /"foo" is not an Array\./)
+          }.to raise_error(Puppet::Error, /got 'foo'/)
         end
       end
 
@@ -112,7 +102,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /true is not a string\./)
+          }.to raise_error(Puppet::Error, /got Boolean/)
         end
       end
 
@@ -128,7 +118,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /true is not a Hash/)
+            }.to raise_error(Puppet::Error, /got Boolean/)
           end
         end
 
@@ -144,7 +134,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /Missing interfaces hash for host 'host1'/)
+            }.to raise_error(Puppet::Error, /expects size to be between 1 and 3/)
           end
         end
 
@@ -163,7 +153,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /"eth 0" does not match/)
+            }.to raise_error(Puppet::Error, /got 'eth 0'/)
           end
         end
 
@@ -182,7 +172,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /true is not a string\./)
+            }.to raise_error(Puppet::Error, /got Boolean/)
           end
         end
 
@@ -201,7 +191,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /"my mac" does not match/)
+            }.to raise_error(Puppet::Error, /got 'my mac'/)
           end
         end
 
@@ -221,7 +211,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /true is not a string/)
+            }.to raise_error(Puppet::Error, /got Boolean/)
           end
         end
 
@@ -241,7 +231,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /"my wrong value" does not match/)
+            }.to raise_error(Puppet::Error, /got 'my wrong value'/)
           end
         end
 
@@ -319,7 +309,7 @@ describe 'dhcp::hosts' do
           it 'should fail' do
             expect {
               should contain_concat__fragment('dhcp.host.My hosts')
-            }.to raise_error(Puppet::Error, /true is not an Array\./)
+            }.to raise_error(Puppet::Error, /got Boolean/)
           end
         end
 
@@ -381,7 +371,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /Could not find template 'wrong\/path'/)
+          }.to raise_error(Puppet::Error, /got 'wrong\/path'/)
         end
       end
     end
