@@ -1,11 +1,11 @@
 <%- |
-  String              $name,
-  Stdlib::Ipv4        $netmask,
-  Array[Stdlib::Ipv4] $routers,
-  Stdlib::Ipv4        $subnet_mask,
-  Stdlib::Ipv4        $broadcast,
-  Pattern[/^\S+$/]    $domain_name,
-  Array[String]       $other_opts,
+  String                         $name,
+  Stdlib::IP::Address::V4        $netmask,
+  Array[Stdlib::IP::Address::V4] $routers,
+  Stdlib::IP::Address::V4        $subnet_mask,
+  Stdlib::IP::Address::V4        $broadcast,
+  Pattern[/^\S+$/]               $domain_name,
+  Array[String]                  $other_opts,
 | -%>
 # File managed by puppet
 

@@ -24,11 +24,11 @@
 #   }
 #
 define dhcp::subnet(
-  Stdlib::Ipv4                      $broadcast,
+  Stdlib::IP::Address::V4           $broadcast,
   Enum['present', 'absent']         $ensure = present,
-  Stdlib::Ipv4                      $netmask = $::netmask,
-  Array[Stdlib::Ipv4]               $routers = [$::netmask],
-  Stdlib::Ipv4                      $subnet_mask = $::netmask,
+  Stdlib::IP::Address::V4           $netmask = $::netmask,
+  Array[Stdlib::IP::Address::V4]    $routers = [$::netmask],
+  Stdlib::IP::Address::V4           $subnet_mask = $::netmask,
   Pattern[/^\S+$/]                  $domain_name = $::domain,
   Variant[Array[String], String]    $other_opts = [],
   Boolean                           $is_shared = false

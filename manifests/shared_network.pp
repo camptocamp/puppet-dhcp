@@ -19,8 +19,8 @@
 #   - subnets must have $is_shared set to true (default is false)
 #
 define dhcp::shared_network(
-  Enum['present', 'absent'] $ensure  = present,
-  Array[Stdlib::Ipv4]       $subnets = [],
+  Enum['present', 'absent']      $ensure  = present,
+  Array[Stdlib::IP::Address::V4] $subnets = [],
 ) {
 
   include ::dhcp::params

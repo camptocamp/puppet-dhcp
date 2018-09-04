@@ -88,7 +88,7 @@ describe 'dhcp::hosts' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp.host.My hosts')
-          }.to raise_error(Puppet::Error, /got 'foo'/)
+          }.to raise_error(Puppet::Error, /got String/)
         end
       end
 

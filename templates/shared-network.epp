@@ -1,7 +1,7 @@
 <%- |
-  String               $name,
-  Array[Stdlib::Ipv4]  $subnets,
-  Stdlib::Absolutepath $config_dir,
+  String                          $name,
+  Array[Stdlib::IP::Address::V4]  $subnets,
+  Stdlib::Absolutepath            $config_dir,
 | -%>
 #### dhcp::shared_network <%= $name %>
 shared-network <%= $name %> {
