@@ -11,7 +11,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.2.0 < 6.0.0"
+      "version_requirement": ">= 4.25.0 < 6.0.0"
     },
     {
       "name": "puppetlabs/concat",
@@ -36,7 +36,7 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-	"6",
+        "6",
         "7"
       ]
     },

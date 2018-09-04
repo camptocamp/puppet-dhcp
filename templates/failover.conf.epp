@@ -1,11 +1,11 @@
 <%- |
-  String       $name,
-  String       $role,
-  Stdlib::Ipv4 $address,
-  Stdlib::Ipv4 $peer_address,
-  Integer      $port,
-  Integer      $peer_port,
-  Hash         $options,
+  String                  $name,
+  String                  $role,
+  Stdlib::IP::Address::V4 $address,
+  Stdlib::IP::Address::V4 $peer_address,
+  Integer                 $port,
+  Integer                 $peer_port,
+  Hash                    $options,
 | -%>
 failover peer "<%= $name %>" {
   <%= $role %>;

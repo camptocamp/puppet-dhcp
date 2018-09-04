@@ -1,7 +1,7 @@
 define dhcp::failover(
-  Stdlib::Ipv4                 $peer_address,
+  Stdlib::IP::Address::V4      $peer_address,
   Enum['present', 'absent']    $ensure    = present,
-  Stdlib::Ipv4                 $address   = $::ipaddress,
+  Stdlib::IP::Address::V4      $address   = $::ipaddress,
   Integer                      $peer_port = 647,
   Integer                      $port      = 647,
   Hash                         $options   = {},

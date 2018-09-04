@@ -59,7 +59,7 @@
 #
 define dhcp::hosts (
   Dhcp::Hosts_data                  $hash_data,
-  Stdlib::Ipv4                      $subnet,
+  Stdlib::IP::Address::V4           $subnet,
   Enum['present', 'absent']         $ensure = present,
   Variant[Array[String], String]    $global_options = [],
   Pattern['\.epp$']                 $template = "${module_name}/host.conf.epp",
