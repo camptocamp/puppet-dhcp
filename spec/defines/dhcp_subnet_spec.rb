@@ -58,7 +58,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /got String/)
+          }.to raise_error(Puppet::Error, /got /)
         end
       end
 
@@ -84,7 +84,7 @@ describe 'dhcp::subnet' do
         it 'should fail' do
           expect {
             should contain_concat('/etc/dhcp/hosts.d/1.2.3.4.conf')
-          }.to raise_error(Puppet::Error, /got String/)
+          }.to raise_error(Puppet::Error, /got /)
         end
       end
 

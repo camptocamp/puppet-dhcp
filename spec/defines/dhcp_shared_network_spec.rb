@@ -64,7 +64,7 @@ describe 'dhcp::shared_network' do
         it 'should fail' do
           expect {
             should contain_concat__fragment('dhcp-shared-My network')
-          }.to raise_error(Puppet::Error, /got String/)
+          }.to raise_error(Puppet::Error, /got /)
         end
       end
 
