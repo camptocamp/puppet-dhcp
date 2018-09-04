@@ -52,7 +52,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /got String/)
+          }.to raise_error(Puppet::Error, /got /)
         end
       end
 
@@ -84,7 +84,7 @@ describe 'dhcp::failover' do
         it 'should fail' do
           expect {
             should contain_file('/etc/dhcp/failover.d/failover-dhcp.conf')
-          }.to raise_error(Puppet::Error, /got String/)
+          }.to raise_error(Puppet::Error, /got /)
         end
       end
 
