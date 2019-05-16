@@ -9,12 +9,14 @@
 host <%= host %>-<%= if_name %> {
   hardware ethernet <%= if_mac %>;
 <%
-  fixed_address = data.fetch('fixed_address', nil) || host
-  scope.function_validate_string([fixed_address])
-  scope.function_validate_re([fixed_address, '^\S+$'])
+  fixed_address = data.fetch('fixed_address', nil)
+  unless fixed_address.nil?
+    scope.function_validate_string([fixed_address])
+    scope.function_validate_re([fixed_address, '^\S+$'])
  -%>
   fixed-address <%= fixed_address %>;
 <%
+  end
   options = data.fetch('options', nil) || @global_options
   scope.function_validate_array([options])
   unless options.empty?
